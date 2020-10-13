@@ -143,7 +143,8 @@ function launchAvalanche() {
 function launchedtext() {
   echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED${normal}"
   echo ''
-  echo "${bold}Your NodeID is: ${NODE_ID} ${normal}"
+  echo "${bold}Your NodeID is: ${normal}"
+  echo ${NODE_ID}
   echo ''
   echo 'Use it to add your node as a validator by following the instructions at:'
   echo "${underline}https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-with-the-wallet${normal}"
