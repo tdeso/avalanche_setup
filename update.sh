@@ -55,7 +55,7 @@ function main () {
     echo '   \____|__  /\_/  (____  /____(____  /___|  /\___  >___|  /\___  > '
     echo '           \/           \/          \/     \/     \/     \/     \/  '
     echo 'Updating Avalanche Node...'
-    
+
     updateAvalanche
 
     if [[ "${NODE_STATUS}" == "running" && "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
@@ -67,7 +67,7 @@ function main () {
     fi
     monitortext
     if [[ "${MONITOR_STATUS}" == "running" ]]; then    
-      echo 'To monitor the node monitoring service, type the following commands:'
+      echo 'To monitor the node updating service, type the following commands:'
       echo '    sudo systemctl status monitor'
       echo '    journalctl -u monitor'
       echo ''   
