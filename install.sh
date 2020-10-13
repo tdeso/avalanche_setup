@@ -23,7 +23,7 @@ function includeDependencies() {
 
 current_dir=$(getCurrentDir)
 includeDependencies
-output_file="install.log"
+output_file="${HOME}/install.log"
 
 echo '      _____               .__                       .__		  '
 echo '     /  _  \___  _______  |  | _____    ____   ____ |  |__   ____   '
