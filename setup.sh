@@ -25,7 +25,7 @@ function main() {
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-    addUserAccount "${username}" "${password}"
+    addUserAccount "${username}" "${password}" --silent_mode
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
     if ask "Do you wish to change the SSH port ?" N; then
