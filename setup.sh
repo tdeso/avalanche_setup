@@ -70,7 +70,7 @@ function main() {
     else
         ssh_command="ssh ${username}@${PUBLIC_IP} -p ${ssh_port}"
     fi        
-    echo -e "Setup Done! Log file is located at ${output_file} \nNow please reboot and connect as ${username} using the command :\n${ssh_command}" >&3
+    echo -e "Setup Done! Log file is located at ${output_file} \nNow please reboot and connect as ${username} using the command:\n${ssh_command}" >&3
 }
 
 function setupSwap() {
