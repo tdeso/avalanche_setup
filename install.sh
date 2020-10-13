@@ -1,5 +1,8 @@
 #!/bin/bash
 # Bash script to install an Avalanche node as a systemd service and automate its updates if desired
+rm -rf setup.sh
+rm -rf README.md
+rm -rf LICENSE
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -30,7 +33,7 @@ function main () {
     sudo apt-get -y install gcc g++ make
 
     importScripts
-    
+
     goInstall
     textVariables
     installAvalanche

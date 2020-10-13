@@ -17,8 +17,8 @@ function confirm() {
 
 function importScripts() {
   echo 'Importing scripts...'
-  chmod 755 update.sh
-  chmod 755 monitor.sh
+  chmod 555 update.sh
+  chmod 555 monitor.sh
   cd $HOME
   git clone https://github.com/jzu/bac.git 
   sudo install -m 755 $HOME/bac/bac /usr/local/bin
