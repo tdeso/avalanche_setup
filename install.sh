@@ -34,7 +34,8 @@ function main () {
     textVariables
     installAvalanche
     writemonitor
-
+    disableUpdateSudoPassword
+    
     if ask "Do you wish to enable automatic updates? " Y; then
         launchMonitor
         AUTO_UPDATE=yes

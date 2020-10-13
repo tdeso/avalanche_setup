@@ -11,6 +11,7 @@ function includeDependencies() {
     # shellcheck source=./setupLibrary.sh
     source "${current_dir}/nodeLibrary.sh"
     source "${current_dir}/setupLibrary.sh"
+    source "${HOME}/.bash_profile"
 }
 
 current_dir=$(getCurrentDir)
@@ -18,7 +19,6 @@ current_dir=$(getCurrentDir)
 includeDependencies
 
 function node_version () {
-  #bac -f info.getNodeVersion | grep version | awk 'NR==1 {print $2}' | sed 's/avalanche//' | tr -d '\/"'
   bac info.getNodeVersion | egrep -o 'avalanche.*"}' | sed 's/avalanche//' | tr -d '\/"}'
 }
 
@@ -28,7 +28,7 @@ function monitorStatus () {
 
 function updateAvalanche() {
   sudo apt-get -y update
-  cd "${GOPATH}"/src/github.com/ava-labs/avalanchego
+  cd ${GOPATH}/src/github.com/ava-labs/avalanchego
   git pull
   ./scripts/build.sh
   if [[ "${MONITOR_STATUS}" == "running" ]]; then    
@@ -40,11 +40,11 @@ function updateAvalanche() {
 }
 
 function updateSuccesstext() {
-  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY UPDATED TO "${NODE_VERSION2}" #####${normal}"    
+  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY UPDATED TO ${NODE_VERSION2} ${normal}"    
 }
 
 function updateFailedtext() {
-  echo "${bold}##### AVALANCHE NODE UPDATE FAILED #####${normal}"    
+  echo "${bold}##### AVALANCHE NODE UPDATE FAILED${normal}"    
 }
 
 function main () {

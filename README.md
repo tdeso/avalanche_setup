@@ -1,10 +1,4 @@
-# avalanche_setup
-Avalanche node setup scripts
-
-from https://github.com/jasonheecs/ubuntu-server-setup
-
-
-# Bash setup script for Ubuntu servers
+# Bash scripts to setup a Ubuntu VPS server and run an Avalanche node
 
 This is a setup script to automate the setup and provisioning of Ubuntu servers. It does the following:
 * Adds a new user account with sudo access
@@ -27,20 +21,30 @@ https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-w
 * OS: Ubuntu >= 18.04
 
 # Usage
+Generate an ssh key on your local machine:
+```bash
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub
+```
+
 SSH into your server using the VPS public IP address: 
 ```bash
 ssh root@10.10.10.10
 ```
 
-Execute the script by using this command:
+Run the setup script by using this command:
 ```bash
-curl -L command | bash
+git clone https://github.com/tdeso/avalanche_setup.git && cd avalanche_setup && bash setup.sh
 ```
 
-Run the setup script
+Once done, reboot and SSH into your server using the user you just created:
 ```bash
-cd ubuntu-server-setup
-bash setup.sh
+ssh user@10.10.10.10 -p [ssh_port]
+```
+
+Run the installation script
+```bash
+git clone https://github.com/tdeso/avalanche_setup.git && cd avalanche_setup && bash install.sh
 ```
 
 # Setup prompts
@@ -63,8 +67,9 @@ cat ~/.ssh/id_rsa.pub
 This setup script has been tested against Ubuntu 14.04, Ubuntu 16.04, Ubuntu 18.04 and Ubuntu 20.04.
 
 # Credits
+This uses a slighlty modified version of a VPS setup script taken from [ubuntu-server-setup]https://github.com/jasonheecs/ubuntu-server-setup.
 This is inspired from [ablock.io](https://github.com/ablockio/AVAX-node-installer) script, with multiple additions and modifications.  
-It leverages [basic avalanche cli](https://github.com/jzu/bac), which is Unix CLI wrapper around the Avalanche JSON API that makes issuing simple calls easier.
+It installs and uses [basic avalanche cli](https://github.com/jzu/bac), which is Unix CLI wrapper around the Avalanche JSON API that makes issuing simple calls easier.
 
 # Licence
 [MIT](https://choosealicense.com/licenses/mit/)
