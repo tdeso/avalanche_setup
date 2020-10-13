@@ -30,7 +30,7 @@ function main() {
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-    addUserAccount "${username}" "${password}" --silent_mode=true
+    addUserAccount "${username}" "${password}" true
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 
