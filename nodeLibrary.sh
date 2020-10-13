@@ -64,53 +64,53 @@ function installAvalanche() {
   echo 'Creating Avalanche node service...'
 
   PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
-  sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
-  ARG1=--public-ip='$PUBLIC_IP'
-  ARG2=--snow-quorum-size=14
-  ARG3=--snow-virtuous-commit-threshold=15
-  EOF'
+sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
+ARG1=--public-ip='$PUBLIC_IP'
+ARG2=--snow-quorum-size=14
+ARG3=--snow-virtuous-commit-threshold=15
+EOF'
 
-  sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/avalanche.service
-  [Unit]
-  Description=Avalanche node service
-  After=network.target
-  [Service]
-  User='$USER'
-  Group='$USER'
-  WorkingDirectory='$GOPATH'/src/github.com/ava-labs/avalanchego
-  EnvironmentFile=/etc/.avalanche.conf
-  ExecStart='$GOPATH'/src/github.com/ava-labs/avalanchego/build/avalanchego \$ARG1 \$ARG2 \$ARG3
-  Restart=always
-  PrivateTmp=true
-  TimeoutStopSec=60s
-  TimeoutStartSec=10s
-  StartLimitInterval=120s
-  StartLimitBurst=5
-  [Install]
-  WantedBy=multi-user.target
-  EOF'
+sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/avalanche.service
+[Unit]
+Description=Avalanche node service
+After=network.target
+[Service]
+User='$USER'
+Group='$USER'
+WorkingDirectory='$GOPATH'/src/github.com/ava-labs/avalanchego
+EnvironmentFile=/etc/.avalanche.conf
+ExecStart='$GOPATH'/src/github.com/ava-labs/avalanchego/build/avalanchego \$ARG1 \$ARG2 \$ARG3
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=10s
+StartLimitInterval=120s
+StartLimitBurst=5
+[Install]
+WantedBy=multi-user.target
+EOF'
 }
 
 function writemonitor () {
   echo 'Creating Avalanche auto-update service'
-  sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
-  [Unit]
-  Description=Avalanche monitoring service
-  After=network.target
-  [Service]
-  User='$USER'
-  Group='$USER'
-  WorkingDirectory='$HOME'
-  ExecStart=/bin/bash '$HOME'/avalanche_setup/monitor.sh
-  Restart=always
-  PrivateTmp=true
-  TimeoutStopSec=60s
-  TimeoutStartSec=10s
-  StartLimitInterval=120s
-  StartLimitBurst=5
-  [Install]
-  WantedBy=multi-user.target
-  EOF'
+sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
+[Unit]
+Description=Avalanche monitoring service
+After=network.target
+[Service]
+User='$USER'
+Group='$USER'
+WorkingDirectory='$HOME'
+ExecStart=/bin/bash '$HOME'/avalanche_setup/monitor.sh
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=10s
+StartLimitInterval=120s
+StartLimitBurst=5
+[Install]
+WantedBy=multi-user.target
+EOF'
 }
 
 function disableUpdateSudoPassword() {
