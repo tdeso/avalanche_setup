@@ -17,6 +17,7 @@ https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-w
 
 # Requirements
 
+A VPS with:
 * Hardware: 2 GHz or faster CPU, 4 GB RAM, 2 GB hard disk.
 * OS: Ubuntu >= 18.04
 
