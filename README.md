@@ -61,6 +61,7 @@ Backup your staking key to a local folder using the command in a local terminal:
 scp -r -P [PORT] user@[XX.XX.XX.XX]:$HOME/go/src/github.com/ava-labs/.avalanchego/staking/ Path/to/local/folder
 # Use the -P [PORT] option if you changed the SSH port.
 ```
+
 # Setup prompts
 You will be prompted to enter several things:
 
