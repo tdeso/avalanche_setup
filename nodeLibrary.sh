@@ -29,7 +29,6 @@ function importScripts() {
 }
 
 function goInstall () {
-  echo 'Installing Go...'
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
   echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
@@ -53,17 +52,16 @@ function textVariables() {
 }
 
 function installAvalanche() {
-  echo 'Cloning avalanchego directory...'
+  echo 'Cloning avalanchego directory...' >&3
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
 
-  echo 'Building avalanchego binary...'
+  echo 'Building avalanchego binary...' >&3
   cd $GOPATH/src/github.com/ava-labs/avalanchego
   ./scripts/build.sh
 
-  echo 'Creating Avalanche node service...'
-
-  PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+  echo 'Creating Avalanche node service...' >&3
+PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
 ARG1=--public-ip='$PUBLIC_IP'
 ARG2=--snow-quorum-size=14
@@ -92,7 +90,6 @@ EOF'
 }
 
 function writemonitor () {
-  echo 'Creating Avalanche auto-update service'
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
 [Unit]
 Description=Avalanche monitoring service
@@ -119,7 +116,6 @@ function disableUpdateSudoPassword() {
 }
 
 function launchMonitor () {
-  echo 'Launching Avalanche monitoring service...'
   sudo systemctl enable monitor
   sudo systemctl start monitor    
 }
@@ -133,7 +129,6 @@ function node_status () {
 }
 
 function launchAvalanche() {
-  echo 'Launching Avalanche node...'
   sudo systemctl enable avalanche
   sudo systemctl start avalanche
   NODE_STATUS=$(eval node_status)

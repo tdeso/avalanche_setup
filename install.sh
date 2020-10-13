@@ -23,6 +23,7 @@ function includeDependencies() {
 
 current_dir=$(getCurrentDir)
 includeDependencies
+output_file="install.log"
 
 echo '      _____               .__                       .__		  '
 echo '     /  _  \___  _______  |  | _____    ____   ____ |  |__   ____   '
@@ -32,26 +33,37 @@ echo '   \____|__  /\_/  (____  /____(____  /___|  /\___  >___|  /\___  > '
 echo '           \/           \/          \/     \/     \/     \/     \/  '
 
 function main () {
-    echo 'Updating packages...'
+    logTimestamp "${output_file}"
+    exec 3>&1 >>"${output_file}" 2>&1
+
+    echo 'Updating packages...' >&3
     sudo apt-get update -y
     sudo apt-get install -y jq perl
     sudo apt-get -y install gcc g++ make
 
     importScripts
 
+    echo 'Installing Go...' >&3
     goInstall
+
     textVariables
+
+    echo 'Starting Avalanche installation...' >&3
     installAvalanche
+    echo 'Creating Avalanche auto-update service' >&3
     writemonitor
     disableUpdateSudoPassword $USER
 
     if ask "Do you wish to enable automatic updates? " Y; then
+        echo 'Launching Avalanche monitoring service...' >&3
         launchMonitor
         AUTO_UPDATE=yes
     fi
 
+    echo 'Launching Avalanche node...' >&3
     launchAvalanche
 
+    {
     if [[ "${NODE_STATUS}" == "running" ]]; then
         launchedSuccesstext
         if [[ "${AUTO_UPDATE}" == "yes" ]]; then
@@ -65,6 +77,8 @@ function main () {
         launchedFailedtext
         monitortext
     fi
+    echo -e "Installation Log file is located at ${output_file}"
+    } >&3
 }
 
 main
