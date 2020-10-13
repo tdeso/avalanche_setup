@@ -53,16 +53,18 @@ function main () {
     launchAvalanche
 
     if [[ "${NODE_STATUS}" == "running" ]]; then
-        launchedtext
+        launchedSuccesstext
         if [[ "${AUTO_UPDATE}" == "yes" ]]; then
             autoUpdatetext
         else
             updatetext
         fi
+        monitortext
+        nodeIDtext
     elif [[ "${NODE_STATUS}" == "exited" ]]; then
         launchedFailedtext
+        monitortext
     fi
-    monitortext
 }
 
 main

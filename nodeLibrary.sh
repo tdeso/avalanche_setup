@@ -140,8 +140,11 @@ function launchAvalanche() {
   NODE_ID=$(eval node_ID)
 }
 
-function launchedtext() {
+function launchedSuccesstext() {
   echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED${normal}"
+}
+
+function nodeIDtext() {
   echo ''
   echo "${bold}Your NodeID is: ${normal}"
   echo ${NODE_ID}
