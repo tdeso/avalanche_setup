@@ -27,19 +27,6 @@ sudo install -m 755 $HOME/bac/bac /usr/local/bin
 sudo install -m 644 $HOME/bac/bac.sigs /usr/local/etc
 rm -rf bac
 
-#cd $HOME
-#wget https://raw.githubusercontent.com/tdeso/node_setup/main/monitor.sh > monitor.sh
-#wget https://raw.githubusercontent.com/tdeso/node_setup/main/update.sh > update.sh
-#chmod 755 update.sh
-#chmod 755 monitor.sh
-#git clone https://github.com/jzu/bac.git
-#sudo install -m 755 $HOME/bac/bac /usr/local/bin
-#sudo install -m 644 $HOME/bac/bac.sigs /usr/local/etc
-#rm -rf bac
-#wget https://raw.githubusercontent.com/tdeso/node_setup/main/bac > bac
-#sudo install -m 755 $HOME/bac /usr/local/bin
-}
-
 function goInstall () {
 echo '### Installing Go...'
 wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
