@@ -42,7 +42,7 @@ function updateAvalanche() {
 }
 
 function updateSuccesstext() {
-  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY UPDATED TO ${NODE_VERSION2} ${normal}"    
+  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY UPDATED TO "${NODE_VERSION2} ${normal}  
 }
 
 function updateFailedtext() {
