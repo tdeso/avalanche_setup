@@ -27,7 +27,7 @@ If you're on macOS, open a Terminal window:
 
 Generate an ssh key on your local machine:
 ```bash
-ssh-keygen -t rsa
+ssh-keygen -t rsa -b 4096
 cat ~/.ssh/id_rsa.pub
 ```
 
