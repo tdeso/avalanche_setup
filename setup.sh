@@ -84,15 +84,6 @@ function hasSwap() {
     [[ "$(sudo swapon -s)" == *"/swapfile"* ]]
 }
 
-function logTimestamp() {
-    local filename=${1}
-    {
-        echo "===================" 
-        echo "Log generated on $(date)"
-        echo "==================="
-    } >>"${filename}" 2>&1
-}
-
 function setupTimezone() {
     echo -ne "Enter the timezone for the server (Default is 'Asia/Singapore'):\n" >&3
     read -r timezone

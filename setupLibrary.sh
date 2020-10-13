@@ -212,3 +212,12 @@ function changeport() {
     read -r -p "What port do you wish to use ? Do not chose the ports 9650 or 9651 : " ssh_port
     sudo sed -re "s/^(\#?)(Port)([[:space:]]+)(.*)/Port "${ssh_port}"/" -i /etc/ssh/sshd_config
 }
+
+function logTimestamp() {
+    local filename=${1}
+    {
+        echo "===================" 
+        echo "Log generated on $(date)"
+        echo "==================="
+    } >>"${filename}" 2>&1
+}
