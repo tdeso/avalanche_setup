@@ -141,12 +141,13 @@ function launchAvalanche() {
 }
 
 function launchedSuccesstext() {
+  echo ''
   echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED${normal}"
 }
 
 function nodeIDtext() {
   echo ''
-  echo "${bold}Your NodeID is: ${normal}"
+  echo "${bold}Your NodeID is: ${normal}" ${NODE_ID}
   echo ${NODE_ID}
   echo ''
   echo 'Use it to add your node as a validator by following the instructions at:'
@@ -155,10 +156,12 @@ function nodeIDtext() {
 }
 
 function launchedFailedtext() {
+  echo ''
   echo "${bold}##### AVALANCHE NODE LAUNCH FAILED${normal}"
 }
 
 function autoUpdatetext() {
+  echo ''
   echo 'To disable automatic updates, type the following command:'
   echo '    sudo systemctl stop monitor'
   echo 'To check the node updating service status, type the following command:'
@@ -168,6 +171,7 @@ function autoUpdatetext() {
 }
 
 function updatetext() {
+  echo ''
   echo "To update your node, run the update.sh script located at $HOME by using the following command:"
   echo "    cd $HOME && ./update.sh"
   echo 'To enable automatic updates, type the following command:'
