@@ -16,12 +16,10 @@ function confirm() {
 }
 
 function importScripts() {
-  echo '### Importing scripts...'
-  cd $HOME
-  wget https://raw.githubusercontent.com/tdeso/avalanche_setup/main/monitor.sh
-  wget https://raw.githubusercontent.com/tdeso/avalanche_setup/main/update.sh
+  echo 'Importing scripts...'
   chmod 755 update.sh
   chmod 755 monitor.sh
+  cd $HOME
   git clone https://github.com/jzu/bac.git 
   sudo install -m 755 $HOME/bac/bac /usr/local/bin
   sudo install -m 644 $HOME/bac/bac.sigs /usr/local/etc
@@ -29,7 +27,7 @@ function importScripts() {
 }
 
 function goInstall () {
-  echo '### Installing Go...'
+  echo 'Installing Go...'
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
   echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
@@ -101,7 +99,7 @@ function writemonitor () {
   User='$USER'
   Group='$USER'
   WorkingDirectory='$HOME'
-  ExecStart=/bin/bash '$HOME'/monitor.sh
+  ExecStart=/bin/bash '$HOME'/avalanche_setup/monitor.sh
   Restart=always
   PrivateTmp=true
   TimeoutStopSec=60s
@@ -115,7 +113,7 @@ function writemonitor () {
 
 function disableUpdateSudoPassword() {
   local username="${1}"
-  sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: /home/${1}/update.sh' | (EDITOR='tee -a' visudo)"
+  sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: /home/${1}/avalanche_setup/update.sh' | (EDITOR='tee -a' visudo)"
 }
 
 function launchMonitor () {
@@ -167,7 +165,7 @@ function updatetext() {
   echo "To update your node, run the update.sh script located at $HOME by using the following command:"
   echo "    cd $HOME && ./update.sh"
   echo 'To enable automatic updates, type the following command:'
-  echo '    sudo systemctl enable && sudo systemctl start monitor'
+  echo '    sudo systemctl enable monitor && sudo systemctl start monitor'
 }
 
 function monitortext () {
@@ -177,8 +175,4 @@ function monitortext () {
   echo '    journalctl -u avalanche'
   echo 'To change the node launch arguments, edit the following file:'
   echo '    /etc/.avalanche.conf'
-  echo 'To monitor the node monitoring service, type the following commands:'
-  echo '    sudo systemctl status monitor'
-  echo '    journalctl -u monitor'
-  echo ''
 }

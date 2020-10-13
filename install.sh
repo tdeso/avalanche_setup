@@ -30,12 +30,13 @@ function main () {
     sudo apt-get -y install gcc g++ make
 
     importScripts
+    
     goInstall
     textVariables
     installAvalanche
     writemonitor
     disableUpdateSudoPassword
-    
+
     if ask "Do you wish to enable automatic updates? " Y; then
         launchMonitor
         AUTO_UPDATE=yes
