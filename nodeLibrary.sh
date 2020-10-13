@@ -26,6 +26,7 @@ git clone https://github.com/jzu/bac.git
 sudo install -m 755 $HOME/bac/bac /usr/local/bin
 sudo install -m 644 $HOME/bac/bac.sigs /usr/local/etc
 rm -rf bac
+}
 
 function goInstall () {
 echo '### Installing Go...'
@@ -122,12 +123,13 @@ function node_ID() {
   #bac -f info.getNodeID | grep NodeID | awk 'NR==1 {print $2}' | tr -d \"
   bac info.getNodeID | egrep -o 'NodeID.*"}' | tr -d \"\}  
 }
+
 function node_status () {
   systemctl -a list-units | grep -F 'avalanche' | awk 'NR ==1 {print $4}' | tr -d \"
 }
 
 function launchAvalanche() {
-  echo '### Launching Avalanche node...'
+  echo 'Launching Avalanche node...'
   sudo systemctl enable avalanche
   sudo systemctl start avalanche
   NODE_ID=$(eval node_ID)
@@ -135,7 +137,7 @@ function launchAvalanche() {
 }
 
 function launchedtext() {
-  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED #####${normal}"
+  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED${normal}"
   echo ''
   echo "${bold}Your NodeID is:${normal}"
   echo "${NODE_ID}"
