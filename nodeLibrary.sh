@@ -3,20 +3,6 @@
 # https://https://github.com/tdeso/avalanche_setup
 # Node scripts Library
 
-# Basic yes/no prompt
-function confirm() {
-    # call with a prompt string or use a default
-   read -r -p "${1:-Are you sure? [Y/n]} " response
-    case "$response" in
-        [yY]*|*)
-            true
-            ;;
-        [nN]*)
-            false
-            ;;
-    esac
-}
-
 function importScripts() {
   echo 'Importing scripts...'
   chmod 555 update.sh

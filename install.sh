@@ -17,8 +17,9 @@ function getCurrentDir() {
 
 function includeDependencies() {
     # shellcheck source=./nodeLibrary.sh
-    source "${current_dir}/setupLibrary.sh"
-    source "${current_dir}/nodeLibrary.sh"
+    #source "${current_dir}/setupLibrary.sh"
+    #source "${current_dir}/nodeLibrary.sh"
+    source  "${current_dir}/library.sh"
 }
 
 current_dir=$(getCurrentDir)
