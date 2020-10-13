@@ -18,8 +18,8 @@ function confirm() {
 function importScripts() {
 echo '### Importing scripts...'
 cd $HOME
-wget https://raw.githubusercontent.com/tdeso/node_setup/master/monitor.sh > monitor.sh
-wget https://raw.githubusercontent.com/tdeso/node_setup/master/update.sh > update.sh
+wget https://raw.githubusercontent.com/tdeso/avalanche_setup/master/monitor.sh
+wget https://raw.githubusercontent.com/tdeso/avalanche_setup/master/update.sh
 chmod 755 update.sh
 chmod 755 monitor.sh
 git clone https://github.com/jzu/bac.git 

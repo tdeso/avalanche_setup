@@ -61,8 +61,12 @@ function main() {
     PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 
     cleanup
-
-    echo "Setup Done! Log file is located at ${output_file} \n Now please reboot and connect as ${username} using the command \n ssh ${username}@${PUBLIC_IP} -p ${ssh_port}" >&3
+    if [[ "${ssh_port}" == 22]]; then
+        ssh_command="ssh ${username}@${PUBLIC_IP}"
+    else
+        ssh_command="ssh ${username}@${PUBLIC_IP} -p ${ssh_port}"
+    fi        
+    echo -e "Setup Done! Log file is located at ${output_file} \nNow please reboot and connect as ${username} using the command :\n${ssh_command}" >&3
 }
 
 function setupSwap() {
