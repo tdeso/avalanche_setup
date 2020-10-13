@@ -101,8 +101,6 @@ User='$USER'
 Group='$USER'
 WorkingDirectory='$HOME'
 ExecStart=/bin/bash '$HOME'/monitor.sh
-StandardInput=journal+console
-StandardOutput=journal+console
 Restart=always
 PrivateTmp=true
 TimeoutStopSec=60s
@@ -121,7 +119,8 @@ function launchMonitor () {
 }
 
 function node_ID() {
-  bac -f info.getNodeID | grep NodeID | awk 'NR==1 {print $2}' | tr -d \"  
+  #bac -f info.getNodeID | grep NodeID | awk 'NR==1 {print $2}' | tr -d \"
+  bac info.getNodeID | egrep -o 'NodeID.*"}' | tr -d \"\}  
 }
 function node_status () {
   systemctl -a list-units | grep -F 'avalanche' | awk 'NR ==1 {print $4}' | tr -d \"
