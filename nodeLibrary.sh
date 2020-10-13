@@ -147,8 +147,7 @@ function launchedSuccesstext() {
 
 function nodeIDtext() {
   echo ''
-  echo "${bold}Your NodeID is: ${normal}" ${NODE_ID}
-  echo ${NODE_ID}
+  echo "${bold}Your NodeID is: "${NODE_ID} ${normal}
   echo ''
   echo 'Use it to add your node as a validator by following the instructions at:'
   echo "${underline}https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-with-the-wallet${normal}"
