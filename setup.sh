@@ -10,7 +10,8 @@ function getCurrentDir() {
 
 function includeDependencies() {
     # shellcheck source=./setupLibrary.sh
-    source "${current_dir}/setupLibrary.sh"
+    #source "${current_dir}/setupLibrary.sh"
+    source "${current_dir}/library.sh"
 }
 
 current_dir=$(getCurrentDir)

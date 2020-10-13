@@ -202,12 +202,14 @@ function revertSudoers() {
     sudo rm -rf /etc/sudoers.bak
 }
 
+# Revert sudoers changes if a backup exists
 function cleanup() {
     if [[ -f "/etc/sudoers.bak" ]]; then
         revertSudoers
     fi
 }
 
+# Prompt for new SSH port and change it
 function changeport() {
     read -r -p "What port do you wish to use ? Do not chose the ports 9650 or 9651 : " ssh_port
     sudo sed -re "s/^(\#?)(Port)([[:space:]]+)(.*)/Port "${ssh_port}"/" -i /etc/ssh/sshd_config
@@ -222,10 +224,14 @@ function logTimestamp() {
     } >>"${filename}" 2>&1
 }
 
+#-------------------------------
+#---------Node related functions
+
+# Set permissions and install basic avalanche cli
 function importScripts() {
-  echo 'Importing scripts...'
-  chmod 555 update.sh
-  chmod 555 monitor.sh
+  sudo chmod 555 update.sh
+  sudo chmod 555 monitor.sh
+  sudo chmod 444 library.sh
   cd $HOME
   git clone https://github.com/jzu/bac.git 
   sudo install -m 755 $HOME/bac/bac /usr/local/bin
@@ -233,6 +239,7 @@ function importScripts() {
   rm -rf bac
 }
 
+# Install go and setup $GOPATH
 function goInstall () {
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
@@ -247,6 +254,7 @@ function goInstall () {
   export GOPATH=$HOME/go
 }
 
+# Set some variables for prettier output in terminal
 function textVariables() {
   # Setting some variables before sourcing .bash_profile
   echo "export bold=\$(tput bold)" >> $HOME/.bash_profile
@@ -256,6 +264,10 @@ function textVariables() {
   source $HOME/.bash_profile
 }
 
+# Install Avalanche
+# Clone the avalanchego repo
+# Build the binary
+# Create a systemd service to run avalanchego in background and restart automatically
 function installAvalanche() {
   echo 'Cloning avalanchego directory...' >&3
   cd $HOME/
@@ -294,6 +306,9 @@ WantedBy=multi-user.target
 EOF'
 }
 
+# Create a systemd service that runs monitor.sh script
+# monitor.sh reads the log and launches the update.sh script 
+# when a string signaling a new avalanchego client is available
 function writemonitor () {
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
 [Unit]
@@ -315,24 +330,29 @@ WantedBy=multi-user.target
 EOF'
 }
 
+# Disable sudo password prompt when running update.sh to enable it being ran in background
 function disableUpdateSudoPassword() {
   local username="${1}"
   sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: /home/${1}/avalanche_setup/update.sh' | (EDITOR='tee -a' visudo)"
 }
 
+# Launch monitor service
 function launchMonitor () {
   sudo systemctl enable monitor
   sudo systemctl start monitor    
 }
 
+# Get Avalanche NodeID
 function node_ID() {
   bac info.getNodeID | egrep -o 'NodeID.*"}' | tr -d \"\}  
 }
 
+# Get avalanche service status
 function node_status () {
   systemctl -a list-units | grep -F 'avalanche' | awk 'NR ==1 {print $4}' | tr -d \"
 }
 
+# Launch avalanche service
 function launchAvalanche() {
   sudo systemctl enable avalanche
   sudo systemctl start avalanche
@@ -340,6 +360,7 @@ function launchAvalanche() {
   NODE_ID=$(eval node_ID)
 }
 
+# Texts about node monitoring
 function launchedSuccesstext() {
   echo ''
   echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED${normal}"
