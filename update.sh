@@ -17,7 +17,6 @@ function includeDependencies() {
 }
 
 current_dir=$(getCurrentDir)
-
 includeDependencies
 
 function node_version () {
