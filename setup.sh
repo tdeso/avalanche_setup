@@ -52,11 +52,16 @@ function main() {
 
     sudo service ssh restart
 
-    cleanup
+    
     
     rm -rf /var/log/journal/ 
     sudo sed -re 's/^(\#?)(Storage)(=)(.*)/Storage=persistent/' -i /etc/systemd/journald.conf
+    execAsUser "${username}" "bash install.sh"
+
     PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+
+    cleanup
+
     echo "Setup Done! Log file is located at ${output_file} \n Now please reboot and connect as ${username} using the command \n ssh ${username}@${PUBLIC_IP} -p ${ssh_port}" >&3
 }
 
