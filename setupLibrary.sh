@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# https://https://github.com/tdeso/avalanche_setup
+# Library script
+
 # yes/no prompt
 function ask() {
     local prompt default reply

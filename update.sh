@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# https://https://github.com/tdeso/avalanche_setup
 # Bash script to update an Avalanche node that runs as a service named avalanche
 
 function getCurrentDir() {

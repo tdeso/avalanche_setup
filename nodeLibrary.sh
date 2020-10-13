@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# https://https://github.com/tdeso/avalanche_setup
 # Node scripts Library
 
 # Basic yes/no prompt

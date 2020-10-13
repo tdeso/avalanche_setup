@@ -1,5 +1,10 @@
 #!/bin/bash
-# Bash script to install an Avalanche node as a systemd service and automate its updates if desired
+
+# https://https://github.com/tdeso/avalanche_setup
+# Bash script to :
+# * install an Avalanche node and run it as a systemd service
+# * automate its updates if desired
+
 rm -rf setup.sh
 rm -rf README.md
 rm -rf LICENSE
