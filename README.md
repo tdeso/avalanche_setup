@@ -22,8 +22,7 @@ A VPS with:
 * OS: Ubuntu >= 18.04
 
 # Usage
-If you're on Windows, open a Powershell window and execute the following commands:
-If you're on macOS, open a Terminal window:
+If you're on Windows, open a Powershell window, if you're on macOS or Linux, open a Terminal window and execute the following commands:  
 
 Generate an ssh key on your local machine:
 ```bash
