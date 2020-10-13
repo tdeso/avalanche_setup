@@ -43,7 +43,7 @@ function main () {
     textVariables
     installAvalanche
     writemonitor
-    disableUpdateSudoPassword
+    disableUpdateSudoPassword $USER
 
     if ask "Do you wish to enable automatic updates? " Y; then
         launchMonitor
