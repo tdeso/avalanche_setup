@@ -18,7 +18,8 @@ current_dir=$(getCurrentDir)
 includeDependencies
 
 function node_version () {
-  bac -f info.getNodeVersion | grep version | awk 'NR==1 {print $2}' | sed 's/avalanche//' | tr -d '\/"'
+  #bac -f info.getNodeVersion | grep version | awk 'NR==1 {print $2}' | sed 's/avalanche//' | tr -d '\/"'
+  bac info.getNodeVersion | egrep -o 'avalanche.*"}' | sed 's/avalanche//' | tr -d '\/"}'
 }
 
 function monitorStatus () {
