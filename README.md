@@ -1,6 +1,6 @@
 # Bash scripts to setup a Ubuntu VPS server and run an Avalanche node
 
-This is a setup script to automate the setup and provisioning of Ubuntu servers. It does the following:
+This is a setup script to automate the setup of a Ubuntu VPS and install an Avalanche node. It does the following:
 * Adds a new user account with sudo access
 * Adds a public ssh key for the new user account
 * Disables password authentication to the server
@@ -78,9 +78,6 @@ cat ~/.ssh/id_rsa.pub
 * You will then be prompted to specify a [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the server. It will be set to 'America/New_York' if you do not specify a value.
 
 * You will be asked if you want to enable automatic node updates.
-
-# Supported versions
-This setup script has been tested against Ubuntu 14.04, Ubuntu 16.04, Ubuntu 18.04 and Ubuntu 20.04.
 
 # Credits
 This uses a slighlty modified version of a VPS setup script taken from [ubuntu-server-setup]https://github.com/jasonheecs/ubuntu-server-setup.
