@@ -21,15 +21,19 @@ https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-w
 * OS: Ubuntu >= 18.04
 
 # Usage
+If you're on Windows, open a Powershell window and execute the following commands:
+If you're on macOS, open a Terminal window:
+
 Generate an ssh key on your local machine:
 ```bash
 ssh-keygen -t rsa
 cat ~/.ssh/id_rsa.pub
 ```
 
-SSH into your server using the VPS public IP address: 
+SSH into your server: 
 ```bash
 ssh root@10.10.10.10
+# Replace 10.10.10.10 by your VPS public IP address
 ```
 
 Run the setup script by using this command:
@@ -39,7 +43,9 @@ git clone https://github.com/tdeso/avalanche_setup.git && cd avalanche_setup && 
 
 Once done, reboot and SSH into your server using the user you just created:
 ```bash
-ssh user@10.10.10.10 -p [ssh_port]
+ssh [user]@10.10.10.10 -p [ssh_port]
+# Replace user by the username you just created 
+# Use -p with the SSH port number you chose if you changed it, otherwise don't use that option.
 ```
 
 Run the installation script
@@ -47,6 +53,14 @@ Run the installation script
 git clone https://github.com/tdeso/avalanche_setup.git && cd avalanche_setup && bash install.sh
 ```
 
+Save the NodeID and follow the instructions at:  
+https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-with-the-wallet
+
+Backup your staking key to a local folder using the command in a local terminal:
+```bash
+scp -r -P [PORT] user@[XX.XX.XX.XX]:$HOME/go/src/github.com/ava-labs/.avalanchego/staking/ Path/to/local/folder
+# Use the -P [PORT] option if you changed the SSH port.
+```
 # Setup prompts
 You will be prompted to enter several things:
 
