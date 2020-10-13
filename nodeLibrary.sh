@@ -155,7 +155,7 @@ function launchedFailedtext() {
 function autoUpdatetext() {
   echo 'To disable automatic updates, type the following command:'
   echo '    sudo systemctl stop monitor'
-  echo 'To check the node monitoring service status, type the following command:'
+  echo 'To check the node updating service status, type the following command:'
   echo '    sudo systemctl status monitor'
   echo 'To check its logs, type the following command:'
   echo '    journalctl -u monitor'
