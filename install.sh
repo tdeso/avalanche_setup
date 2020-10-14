@@ -44,8 +44,18 @@ function main () {
 
     importScripts
 
-    echo 'Installing Go...' >&3
-    goInstall
+    #echo 'Installing Go...' >&3
+    until goInstall
+    do 
+    {
+    printf "Installing Go  ..\r"
+    sleep 0.5
+    printf "Installing Go . .\r"
+    sleep 0.5
+    printf "Installing Go .. \r"
+    } >&3
+    done
+    
 
     textVariables
 
