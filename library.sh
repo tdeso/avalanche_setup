@@ -410,3 +410,16 @@ function monitortext () {
   echo 'To change the node launch arguments, edit the following file:'
   echo '    /etc/.avalanche.conf'
 }
+
+function progress() {
+    local function=${1}
+    local string=${2}
+    until [[ ${_progress_status} == "done" ]]; do
+    {
+    echo "${string}" ..  \r\c
+    echo "${string}". .  \r\c
+    echo "${string}"..   \r\c
+    } >&3
+    ${function} && _progress_status=done
+    done
+}
