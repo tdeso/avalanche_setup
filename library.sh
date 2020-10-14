@@ -224,8 +224,9 @@ function logTimestamp() {
     } >>"${filename}" 2>&1
 }
 
-#-------------------------------
-#---------Node related functions
+##################################################
+#-------------------------------------------------
+#------------- Node related functions ------------
 
 # Set permissions and install basic avalanche cli
 function importScripts() {
@@ -368,7 +369,7 @@ function launchedSuccesstext() {
 
 function nodeIDtext() {
   echo ''
-  echo "Your NodeID is:"${bold} ${NODE_ID} ${normal}
+  echo "${bold}Your NodeID is:" ${NODE_ID} ${normal}
   echo ''
   echo 'Use it to add your node as a validator by following the instructions at:'
   echo "${underline}https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-with-the-wallet${normal}"
