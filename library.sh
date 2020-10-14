@@ -448,3 +448,7 @@ function spinner() {
 ("$@") &
 show_spinner "$!"    
 }    
+
+function reset() {
+    sudo rm -rf * && sudo rm -rf .avalanchego/ && sudo rm -rf /etc/systemd/system/avalanche.service && sudo rm -rf /etc/systemd/system/monitor.service && sudo rm -rf /etc/.avalanche.conf
+}
