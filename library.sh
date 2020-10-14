@@ -358,6 +358,7 @@ function launchAvalanche() {
   sudo systemctl enable avalanche
   sudo systemctl start avalanche
   NODE_STATUS=$(eval node_status)
+  sleep .5
   NODE_ID=$(eval node_ID)
 }
 
