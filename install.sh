@@ -58,7 +58,15 @@ function main () {
     textVariables
 
     echo 'Starting Avalanche installation...' >&3
-    installAvalanche
+    until installAvalanche
+    do 
+    printf "Installing avalanche  ..\r" >&3
+    sleep 0.5
+    printf "Installing avalanche . .\r" >&3
+    sleep 0.5
+    printf "Installing avalanche .. \r" >&3
+    done
+
     echo 'Creating Avalanche auto-update service' >&3
     writemonitor
     disableUpdateSudoPassword $USER
