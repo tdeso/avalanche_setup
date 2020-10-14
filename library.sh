@@ -419,9 +419,9 @@ function progress() {
     string3="${string}.. "
     until [[ ${_progress_status} == "done" ]]; do
     {
-    echo -e "${string1}\r\c"
-    echo -e "${string2}\r\c"
-    echo -e "${string3}\r\c"
+    echo -ne "${string1}\r"
+    echo -ne "${string2}\r"
+    echo -ne "${string3}\r"
     } >&3
     ${function} && _progress_status=done
     done
