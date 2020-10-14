@@ -11,8 +11,9 @@ function getCurrentDir() {
 
 function includeDependencies() {
     # shellcheck source=./setupLibrary.sh
-    source "${current_dir}/nodeLibrary.sh"
-    source "${current_dir}/setupLibrary.sh"
+    #source "${current_dir}/nodeLibrary.sh"
+    #source "${current_dir}/setupLibrary.sh"
+    source "${current_dir}/library.sh"
     source "${HOME}/.bash_profile"
 }
 
@@ -36,8 +37,9 @@ function updateAvalanche() {
   sudo systemctl restart monitor    
   fi
   sudo systemctl restart avalanche 
-  NODE_VERSION2=$(eval node_version)
   NODE_STATUS=$(eval node_status)
+  sleep 1
+  NODE_VERSION2=$(eval node_version)
 }
 
 function updateSuccesstext() {
