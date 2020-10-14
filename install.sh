@@ -45,28 +45,12 @@ function main () {
     importScripts
 
     echo 'Installing Go...' >&3
-    until goInstall
-    do 
-    printf "Installing Go  ..\r" >&3
-    sleep 0.5
-    printf "Installing Go . .\r" >&3
-    sleep 0.5
-    printf "Installing Go .. \r" >&3
-    done
-    
+    goInstall
 
     textVariables
 
     echo 'Starting Avalanche installation...' >&3
-    until installAvalanche
-    do 
-    printf "Installing avalanche  ..\r" >&3
-    sleep 0.5
-    printf "Installing avalanche . .\r" >&3
-    sleep 0.5
-    printf "Installing avalanche .. \r" >&3
-    done
-
+    installAvalanche
     echo 'Creating Avalanche auto-update service' >&3
     writemonitor
     disableUpdateSudoPassword $USER
