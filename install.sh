@@ -49,7 +49,7 @@ function main () {
 
     textVariables
 
-    progress installAvalanche "Installing Avalanche"
+    progress_a installAvalanche >&3
     #echo 'Starting Avalanche installation...' >&3
     #installAvalanche
     echo 'Creating Avalanche auto-update service' >&3
