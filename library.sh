@@ -420,8 +420,11 @@ function progress() {
     until [[ ${_progress_status} == "done" ]]; do
     {
     echo -ne "${string1}\r"
+    sleep 1
     echo -ne "${string2}\r"
+    sleep 1
     echo -ne "${string3}\r"
+    sleep 1
     } >&3
     ${function} && _progress_status=done
     done
