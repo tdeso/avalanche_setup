@@ -414,9 +414,9 @@ function monitortext () {
 function progress() {
     local function=${1}
     local string=${2}
-    string1="${string} .."
-    string2="${string}. ."
-    string3="${string}.. "
+    string1="${string}_.."
+    string2="${string}._."
+    string3="${string}.._"
     until [[ ${_progress_status} == "done" ]]; do
     {
     echo -ne "${string1}\r"
