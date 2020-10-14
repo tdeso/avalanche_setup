@@ -358,10 +358,12 @@ function launchAvalanche() {
   sudo systemctl enable avalanche
   sudo systemctl start avalanche
   NODE_STATUS=$(eval node_status)
-  while [[ -z $NODE_ID ]]; do
-    sleep 0.5
-    NODE_ID=$(eval node_ID)
-  done 
+ # while [[ -z $NODE_ID ]]; do
+ #   sleep 0.2
+ #   NODE_ID=$(eval node_ID)
+ # done 
+  sleep 1
+  NODE_ID=$(eval node_ID)
 }
 
 # Texts about node monitoring
