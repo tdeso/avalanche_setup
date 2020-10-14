@@ -414,16 +414,19 @@ function monitortext () {
 function progress() {
     local function=${1}
     local string=${2}
+    string1="${string} .."
+    string2="${string}. ."
+    string3="${string}.. "
     until [[ ${_progress_status} == "done" ]]; do
     {
-    echo -e "${string}_..  \r\c"
-    echo -e "${string}._.  \r\c"
-    echo -e "${string}.._   \r\c"
+    echo -e "${string1}\r\c"
+    echo -e "${string2}\r\c"
+    echo -e "${string3}\r\c"
     } >&3
     ${function} && _progress_status=done
     done
 }
-function progress_a() {
+function spinner() {
     function show_spinner()
     {
     local -r pid="${1}"

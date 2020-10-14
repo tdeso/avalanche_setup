@@ -49,8 +49,8 @@ function main () {
 
     textVariables
     
-    echo 'Starting Avalanche installation...' >&3
-    installAvalanche
+   # echo 'Starting Avalanche installation...' >&3
+    progress installAvalanche "Installing Avalanche"
     echo 'Creating Avalanche auto-update service' >&3
     writemonitor
     disableUpdateSudoPassword $USER
