@@ -270,15 +270,15 @@ function textVariables() {
 # Build the binary
 # Create a systemd service to run avalanchego in background and restart automatically
 function installAvalanche() {
-  echo '>Cloning avalanchego directory...' >&3
+  echo 'Cloning avalanchego directory...'
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
 
-  echo '>Building avalanchego binary...' >&3
+  echo 'Building avalanchego binary...'
   cd $GOPATH/src/github.com/ava-labs/avalanchego
   ./scripts/build.sh
 
-  echo '>Creating Avalanche node service...' >&3
+  echo 'Creating Avalanche node service...'
 PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
 ARG1=--public-ip='$PUBLIC_IP'
@@ -416,9 +416,9 @@ function progress() {
     local string=${2}
     until [[ ${_progress_status} == "done" ]]; do
     {
-    echo "${string}" ..  \r\c
-    echo "${string}". .  \r\c
-    echo "${string}"..   \r\c
+    echo -e "${string} ..  \r\c"
+    echo -e "${string}. .  \r\c"
+    echo -e "${string}..   \r\c"
     } >&3
     ${function} && _progress_status=done
     done
