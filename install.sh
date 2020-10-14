@@ -56,7 +56,7 @@ function main () {
     disableUpdateSudoPassword $USER
 
     {
-    if ask "Do you wish to enable automatic updates? " Y; then
+    if ask "Do you wish to enable automatic updates?" Y; then
         echo 'Launching Avalanche monitoring service...'
         launchMonitor
         AUTO_UPDATE=yes
