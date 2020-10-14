@@ -48,10 +48,9 @@ function main () {
     goInstall
 
     textVariables
-
-    progress_a installAvalanche >&3
-    #echo 'Starting Avalanche installation...' >&3
-    #installAvalanche
+    
+    echo 'Starting Avalanche installation...' >&3
+    installAvalanche
     echo 'Creating Avalanche auto-update service' >&3
     writemonitor
     disableUpdateSudoPassword $USER
