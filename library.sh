@@ -289,10 +289,11 @@ function installAvalanche() {
 PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 sudo mkdir -p /etc/systemd/system/avalanche.service.d/
 { echo "[Service]";
-  echo "Environment=";
-  echo "ARG1=--public-ip=$PUBLIC_IP";
-  echo "ARG2=--snow-quorum-size=14";
-  echo "ARG3=--snow-virtuous-commit-threshold=15";
+  echo "Environment=\
+  "ARG1=--public-ip=$PUBLIC_IP" \
+  "ARG2=--snow-quorum-size=14" \
+  "ARG3=--snow-virtuous-commit-threshold=15"\
+  /"
 } | sudo tee /etc/systemd/system/avalanche.service.d/launch_arguments.conf
 
 #sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
