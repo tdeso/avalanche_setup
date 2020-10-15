@@ -186,6 +186,24 @@ function getPhysicalMemory() {
     fi
 }
 
+function disablePasswdEntropy() {
+    sudo cp /etc/pam.d/common-password /etc/pam.d/common-password.bak
+    sudo sed -re 's/(pam_unix.so obscure)/pam_unix.so/g' -i /etc/pam.d/common-password
+}
+
+# Reverts the original /etc/sudoers file before this script is ran
+function revertPasswdEntropy() {
+    sudo cp /etc/pam.d/common-password.bak /etc/pam.d/common-password
+    sudo rm -rf /etc/pam.d/common-password.bak
+}
+
+# Revert sudoers changes if a backup exists
+function cleanupEntropy() {
+    if [[ -f "/etc/pam.d/common-password.bak" ]]; then
+        revertPasswdEntropy
+    fi
+}
+
 # Disables the sudo password prompt for a user account by editing /etc/sudoers
 # Arguments:
 #   Account username

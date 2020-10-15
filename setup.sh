@@ -21,12 +21,15 @@ output_file="output.log"
 function main() {
     read -rp "Enter the username of the new user account: " username
 
+    cleanupEntropy
+    disablePasswdEntropy
     promptForPassword
 
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
     addUserAccount "${username}" "${password}" true
+    cleanupEntropy
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 
@@ -35,8 +38,11 @@ function main() {
     fi
     
     if ask "Do you wish to change the root password?" N; then
+        disablePasswdEntropy
         promptForRootPassword
         echo "${rootpassword}" | passwd root
+        cleanupEntropy
+
     fi
 
     echo 'Running setup script...'
@@ -99,7 +105,7 @@ function setupTimezone() {
 function promptForPassword() {
    PASSWORDS_MATCH=0
    while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
-       read -s -rp "Enter new UNIX password:" password
+       read -s -rp "Enter new UNIX password with at least one uppercase char and one number:" password
        printf "\n"
        read -s -rp "Retype new UNIX password:" password_confirmation
        printf "\n"
