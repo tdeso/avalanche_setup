@@ -34,7 +34,7 @@ echo '   \____|__  /\_/  (____  /____(____  /___|  /\___  >___|  /\___  > '
 echo '           \/           \/          \/     \/     \/     \/     \/  '
 
 function main () {
-    sudo cd $HOME
+    cd $HOME
     logTimestamp "${output_file}"
 
     progress installDependencies "Installing dependencies"
