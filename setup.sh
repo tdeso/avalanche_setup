@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -e
+set -e
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
