@@ -171,6 +171,7 @@ function configureNTP() {
     else
         sudo apt-get update
         sudo apt-get --assume-yes install ntp
+        sudo service ntp restart
     fi
 }
 
@@ -210,7 +211,7 @@ function cleanup() {
 }
 
 # Prompt for new SSH port and change it
-function changeport() {
+function changePort() {
     read -r -p "What port do you wish to use ? Do not chose the ports 9650 or 9651 : " ssh_port
     sudo sed -re "s/^(\#?)(Port)([[:space:]]+)(.*)/Port "${ssh_port}"/" -i /etc/ssh/sshd_config
 }
@@ -230,9 +231,9 @@ function logTimestamp() {
 
 # Set permissions and install basic avalanche cli
 function importScripts() {
-  sudo chmod 555 update.sh
-  sudo chmod 555 monitor.sh
-  sudo chmod 444 library.sh
+  sudo chmod 500 update.sh
+  sudo chmod 500 monitor.sh
+  sudo chmod 400 library.sh
   cd $HOME
   git clone https://github.com/jzu/bac.git 
   sudo install -m 755 $HOME/bac/bac /usr/local/bin
@@ -429,7 +430,22 @@ function progress() {
     } >&3
     done
 }
+
 function spinner() {
+    local function=${1}
+    local string=${2}
+    ${function} &>> ${output_file} 
+    PID=$!
+    i=1
+    sp="/-\|"
+    echo -n ' '
+    while [ -d /proc/$PID ]
+    do
+    printf "${string} \b${sp:i++%${#sp}:1}"
+    done
+}
+
+function spinner_() {
     function show_spinner()
     {
     local -r pid="${1}"
