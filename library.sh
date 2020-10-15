@@ -417,7 +417,8 @@ function progress() {
     string1="${string}_.."
     string2="${string}._."
     string3="${string}.._"
-    until [[ ${_progress_status} == "done" ]]; do
+    ${function}
+    while [[ $? -ne 0 ]]; do
     {
     echo -ne "${string1}\r"
     sleep 0.75
@@ -426,7 +427,6 @@ function progress() {
     echo -ne "${string3}\r"
     sleep 0.75
     } >&3
-    ${function} && _progress_status=done
     done
 }
 function spinner() {
