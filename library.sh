@@ -423,9 +423,9 @@ function progress() {
     local command=${1}
     local string=${2}
 
-    string1="${string}﹒.. " #.⸳··‧᛫ #·.." ‧·· ·· ... ·᛫᛫
-    string2="${string}.﹒. " #.·." ·‧· ᛫·᛫
-    string3="${string}..﹒" #..·" ᛫᛫· ··‧    
+    string1="${string}⸳.. " #.⸳··‧᛫ #·.." ‧·· ·· ... ·᛫᛫
+    string2="${string}.⸳. " #.·." ·‧· ᛫·᛫
+    string3="${string}..⸳" #..·" ᛫᛫· ··‧    
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
