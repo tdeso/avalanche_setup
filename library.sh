@@ -301,6 +301,8 @@ sudo mkdir -p /etc/systemd/system/avalanche.service.d/
 #ARG3=--snow-virtuous-commit-threshold=15
 #EOF'
 
+#EnvironmentFile=/etc/.avalanche.conf
+
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/avalanche.service
 [Unit]
 Description=Avalanche node service
@@ -309,7 +311,6 @@ After=network.target
 User='$USER'
 Group='$USER'
 WorkingDirectory='$GOPATH'/src/github.com/ava-labs/avalanchego
-EnvironmentFile=/etc/.avalanche.conf
 ExecStart='$GOPATH'/src/github.com/ava-labs/avalanchego/build/avalanchego \$ARG1 \$ARG2 \$ARG3
 Restart=always
 PrivateTmp=true
@@ -422,9 +423,9 @@ function progress() {
     local command=${1}
     local string=${2}
 
-    string1="${string} ·᛫᛫" #.⸳··‧᛫ #·.." ‧·· ··
-    string2="${string} ᛫·᛫" #.·." ·‧·
-    string3="${string} ᛫᛫·" #..·" ··‧
+    string1="${string}﹒.. " #.⸳··‧᛫ #·.." ‧·· ·· ... ·᛫᛫
+    string2="${string}.﹒. " #.·." ·‧· ᛫·᛫
+    string3="${string}..﹒" #..·" ᛫᛫· ··‧    
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
