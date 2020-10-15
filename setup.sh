@@ -19,7 +19,6 @@ includeDependencies
 output_file="output.log"
 
 function main() {
-
     read -rp "Enter the username of the new user account: " username
 
     promptForPassword
@@ -57,7 +56,7 @@ function main() {
 
     echo "Installing Network Time Protocol... " >&3
     configureNTP
-    sudo service ntp restart
+
     sudo service ssh restart
     
     rm -rf /var/log/journal/ 
