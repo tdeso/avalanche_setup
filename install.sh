@@ -34,7 +34,7 @@ function main () {
 
     progress goInstall "Installing Go"
 
-    textVariables >> ${output_file} 2>&1 &
+    textVariables #>> ${output_file} 2>&1 &
     
     progress installAvalanche "Installing Avalanche, it may take some time"
 

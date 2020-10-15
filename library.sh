@@ -171,7 +171,6 @@ function configureNTP() {
     else
         sudo apt-get update
         sudo apt-get --assume-yes install ntp
-        sudo service ntp restart
     fi
 }
 
