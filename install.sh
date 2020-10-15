@@ -45,12 +45,12 @@ function main () {
     importScripts
 
     echo 'Installing Go...' #>&3
-    spinner goInstall "Installing Go"
+    progress_ goInstall "Installing Go"
 
     textVariables
     
    # echo 'Starting Avalanche installation...' >&3
-    spinner installAvalanche "Installing Avalanche"
+    progress_ installAvalanche "Installing Avalanche"
     echo 'Creating Avalanche auto-update service' #>&3
     writemonitor
     disableUpdateSudoPassword $USER

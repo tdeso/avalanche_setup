@@ -431,10 +431,10 @@ function progress() {
     done
 }
 
-function spinner() {
+function progress_() {
     local command=${1}
     local string=${2}
-    
+
     ${command} &>> ${output_file} 
     PID=$!
     i=1
