@@ -29,14 +29,13 @@ function monitorStatus () {
 }
 
 function updateAvalanche() {
-  sudo apt-get -y update
   cd ${GOPATH}/src/github.com/ava-labs/avalanchego
   git pull
   ./scripts/build.sh
+  sudo systemctl restart avalanche 
   if [[ "${MONITOR_STATUS}" == "running" ]]; then    
   sudo systemctl restart monitor    
   fi
-  sudo systemctl restart avalanche 
   NODE_STATUS=$(eval node_status)
   sleep 1
   NODE_VERSION2=$(eval node_version)
