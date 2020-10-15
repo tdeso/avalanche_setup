@@ -67,8 +67,8 @@ function main() {
     PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 
     cleanup
-    cleanupEntropy
-    
+    cleanupEntropy >&3
+
     if [[ "${ssh_port}" == 22 ]]; then
         ssh_command="ssh ${username}@${PUBLIC_IP}"
     else
