@@ -289,11 +289,9 @@ function installAvalanche() {
 PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 sudo mkdir -p /etc/systemd/system/avalanche.service.d/
 { echo "[Service]";
-  echo "Environment=\
-  "ARG1=--public-ip=$PUBLIC_IP" \
-  "ARG2=--snow-quorum-size=14" \
-  "ARG3=--snow-virtuous-commit-threshold=15"\
-  /"
+  echo "Environment="ARG1=--public-ip=$PUBLIC_IP"";
+  echo "Environment="ARG2=--snow-quorum-size=14"";
+  echo "Environment="ARG3=--snow-virtuous-commit-threshold=15""
 } | sudo tee /etc/systemd/system/avalanche.service.d/launch_arguments.conf
 
 #sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
@@ -428,7 +426,9 @@ function progress() {
     string2="${string}.⸳. " #.·." ·‧· ᛫·᛫
     string3="${string}..⸳" #..·" ᛫᛫· ··‧    
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    source $HOME/.bash_profile
+    if [[ -f "$HOME/.bash_profile" ]]; then
+        source $HOME/.bash_profile
+    fi
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
@@ -445,5 +445,5 @@ function progress() {
 }
 
 function reset() {
-    sudo rm -rf * && sudo rm -rf .avalanchego/ && sudo rm -rf /etc/systemd/system/avalanche.service && sudo rm -rf /etc/systemd/system/monitor.service && sudo rm -rf /etc/.avalanche.conf
+    sudo rm -rf * && sudo rm -rf .avalanchego/ && sudo rm -rf /etc/systemd/system/avalanche.service && sudo rm -rf /etc/systemd/system/monitor.service && sudo rm -rf /etc/.avalanche.conf && sudo rm -rf /etc/systemd/system/avalanche.service.d/launch_arguments.conf && rm -rf .bash_profile
 }
