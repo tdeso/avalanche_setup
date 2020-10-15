@@ -236,7 +236,7 @@ function installDependencies() {
   sudo apt-get -y install gcc g++ make
 
 # Set permissions and install basic avalanche cli
-function importScripts() {
+#function importScripts() {
   sudo chmod 500 update.sh
   sudo chmod 500 monitor.sh
   sudo chmod 400 library.sh
