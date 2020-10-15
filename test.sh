@@ -8,12 +8,12 @@ if [[ $USER == "root" ]]; then
     git clone https://github.com/tdeso/avalanche_setup.git;
     sleep 2;
     bash ~/avalanche_setup/setup.sh;
-    rm -rf ~/avalanche_setup
+    #rm -rf ~/avalanche_setup
 
 else
     git clone https://github.com/tdeso/avalanche_setup.git;
     cd avalanche_setup;
-    sudo bash install.sh;
+    sudo bash ~/avalanche_setup/install.sh;
     cd;
     rm -rf go1.13.linux-amd64.tar.gz;
     find -path $HOME/avalanche_setup/ ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -exec rm -rf {} + 
