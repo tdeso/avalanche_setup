@@ -190,7 +190,7 @@ function disablePasswdEntropy() {
     sudo cp /etc/pam.d/common-password /etc/pam.d/common-password.bak
     sudo sed -re 's/(pam_unix.so)(.*)/pam_unix.so minlen=1 sha512/g' -i /etc/pam.d/common-password
     #sudo sed -re 's/(minlen=8)/minlen=1/g' -i /etc/pam.d/common-password
-    sed -i '/![^#]/ s/\(^.*pam_cracklib.so.*$\)/#\1/' -i /etc/pam.d/common-password
+    sed 's/^[^#]*pam_cracklib/#&/' -i /etc/pam.d/common-password
     #sudo cp /usr/share/pam-configs/unix /usr/share/pam-configs/unix.bak
     #sudo sed -re 's/(pam_unix.so obscure)/pam_unix.so/g' -i /usr/share/pam-configs/unix
     
