@@ -411,25 +411,6 @@ function monitortext () {
   echo '    /etc/.avalanche.conf'
 }
 
-function progress() {
-    local function=${1}
-    local string=${2}
-    string1="${string}_.."
-    string2="${string}._."
-    string3="${string}.._"
-    ${function} &
-    {
-    while [ $? -ne 0 ]; do
-    echo -ne "${string1}\r"
-    sleep 0.75
-    echo -ne "${string2}\r"
-    sleep 0.75
-    echo -ne "${string3}\r"
-    sleep 0.75
-    } >&3
-    done
-}
-
 # Look for the 4 common signals that indicate this script was killed.
 # If the background command was started, kill it, too.
 function progress() {
