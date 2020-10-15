@@ -5,10 +5,6 @@
 # * install an Avalanche node and run it as a systemd service
 # * automate its updates if desired
 
-rm -rf setup.sh
-rm -rf README.md
-rm -rf LICENSE
-
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
@@ -16,9 +12,6 @@ function getCurrentDir() {
 }
 
 function includeDependencies() {
-    # shellcheck source=./nodeLibrary.sh
-    #source "${current_dir}/setupLibrary.sh"
-    #source "${current_dir}/nodeLibrary.sh"
     source  "${current_dir}/library.sh"
 }
 
@@ -72,7 +65,7 @@ function main () {
         monitortext
     fi
     echo -e "Installation Log file is located at ${output_file}"
-    } #>&3
+    }
 }
 
 main

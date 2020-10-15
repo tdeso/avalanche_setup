@@ -10,15 +10,13 @@ function getCurrentDir() {
 }
 
 function includeDependencies() {
-    # shellcheck source=./setupLibrary.sh
-    #source "${current_dir}/nodeLibrary.sh"
-    #source "${current_dir}/setupLibrary.sh"
     source "${current_dir}/library.sh"
     source "${HOME}/.bash_profile"
 }
 
 current_dir=$(getCurrentDir)
 includeDependencies
+update_output_file="${HOME}/update_"$(date +%FT%T)".log"
 
 function node_version () {
   bac info.getNodeVersion | egrep -o 'avalanche.*"}' | sed 's/avalanche//' | tr -d '\/"}'
@@ -50,7 +48,7 @@ function updateFailedtext() {
 }
 
 function main () {
-    echo '      _____               .__                       .__		      '
+    echo '      _____               .__                       .__		          '
     echo '     /  _  \___  _______  |  | _____    ____   ____ |  |__   ____   '
     echo '    /  /_\  \  \/ /\__  \ |  | \__  \  /    \_/ ___\|  |  \_/ __ \  '
     echo '   /    |    \   /  / __ \|  |__/ __ \|   |  \  \___|   Y  \  ___/  '
@@ -78,4 +76,5 @@ function main () {
 
 NODE_VERSION1=$(eval node_version)
 MONITOR_STATUS=$(eval monitorStatus)
-main
+logTimestamp "${output_file}"
+main 2>> ${update_output_file}
