@@ -418,8 +418,8 @@ function progress() {
     string2="${string}._."
     string3="${string}.._"
     ${function}
-    while [ $? -ne 0 ]; do
     {
+    while [ $? -ne 0 ]; do
     echo -ne "${string1}\r"
     sleep 0.75
     echo -ne "${string2}\r"
