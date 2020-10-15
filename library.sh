@@ -314,28 +314,19 @@ EOF'
 function writemonitor () {
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
 [Unit]
-Description=Avalanche monitoring service
+Description=Avalanche updating service
 After=network.target
 [Service]
 User='$USER'
 Group='$USER'
 WorkingDirectory='$HOME'
-ExecStart=/bin/bash '$HOME'/avalanche_setup/monitor.sh
-Restart=always
+ExecStart=+/bin/bash '$HOME'/avalanche_setup/monitor.sh
 PrivateTmp=true
 TimeoutStopSec=60s
 TimeoutStartSec=10s
-StartLimitInterval=120s
-StartLimitBurst=5
 [Install]
 WantedBy=multi-user.target
 EOF'
-}
-
-# Disable sudo password prompt when running update.sh to enable it being ran in background
-function disableUpdateSudoPassword() {
-  local username="${1}"
-  sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: /home/${1}/avalanche_setup/update.sh' | (EDITOR='tee -a' visudo)"
 }
 
 # Launch monitor service
