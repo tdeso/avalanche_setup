@@ -6,7 +6,7 @@ if [[ $USER == "root" ]]; then
     sleep 1;
     git clone https://github.com/tdeso/avalanche_setup.git;
     sleep 1;
-    bash ~/avalanche_setup/setup.sh;
+    bash -c ~/avalanche_setup/setup.sh;
     rm -rf ~/avalanche_setup
 
 else
