@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
@@ -23,7 +23,6 @@ function main() {
     if ask "Do you wish to change the root password?" N; then
         promptForRootPassword
         echo "${rootpassword}" | passwd
-
     fi
 
     read -rp "Enter the username of the new user account: " username
@@ -115,7 +114,7 @@ function promptForPassword() {
 }
 
 function promptForRootPassword() {
-   PASSWORDS_MATCH=0
+   ROOT_PASSWORDS_MATCH=0
    while [ "${ROOT_PASSWORDS_MATCH}" -eq "0" ]; do
        read -s -rp "Enter new root password:" rootpassword
        printf "\n"
