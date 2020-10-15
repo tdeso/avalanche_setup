@@ -229,6 +229,12 @@ function logTimestamp() {
 #-------------------------------------------------
 #------------- Node related functions ------------
 
+function installDependencies() {
+  echo 'Updating packages...' #>&3
+  sudo apt-get update -y
+  sudo apt-get install -y jq perl
+  sudo apt-get -y install gcc g++ make
+
 # Set permissions and install basic avalanche cli
 function importScripts() {
   sudo chmod 500 update.sh
@@ -281,7 +287,7 @@ function installAvalanche() {
 PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 sudo mkdir -p /etc/systemd/system/avalanche.service.d/
 { echo "[Service]";
-  echo "Environment";
+  echo "Environment=";
   echo "ARG1=--public-ip=$PUBLIC_IP";
   echo "ARG2=--snow-quorum-size=14";
   echo "ARG3=--snow-virtuous-commit-threshold=15";
@@ -414,9 +420,9 @@ function progress() {
     local command=${1}
     local string=${2}
 
-    string1="${string}_.."
-    string2="${string}._."
-    string3="${string}.._"
+    string1="${string}·.."
+    string2="${string}.·."
+    string3="${string}..·"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
     ${command} > ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
@@ -430,6 +436,7 @@ function progress() {
         sleep 0.75
         }
     done
+    echo "${string}..."
 }
 
 function reset() {
