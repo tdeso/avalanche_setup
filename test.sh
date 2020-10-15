@@ -13,5 +13,5 @@ else
     cd avalanche_setup
     sudo bash install.sh
     cd 
-    #find $HOME/avalanche_setup ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -delete 
+    find $HOME/avalanche_setup ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -delete 
 fi
