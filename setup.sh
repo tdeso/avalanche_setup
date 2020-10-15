@@ -21,7 +21,6 @@ output_file="output.log"
 function main() {
     read -rp "Enter the username of the new user account: " username
 
-    cleanupEntropy
     disablePasswdEntropy
     promptForPassword
 
@@ -68,7 +67,8 @@ function main() {
     PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 
     cleanup
-
+    cleanupEntropy
+    
     if [[ "${ssh_port}" == 22 ]]; then
         ssh_command="ssh ${username}@${PUBLIC_IP}"
     else
