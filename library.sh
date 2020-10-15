@@ -271,7 +271,6 @@ function textVariables() {
 # Build the binary
 # Create a systemd service to run avalanchego in background and restart automatically
 function installAvalanche() {
-  echo 'Cloning avalanchego directory...'
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
   cd $GOPATH/src/github.com/ava-labs/avalanchego
@@ -419,7 +418,7 @@ function progress() {
     string2="${string}._."
     string3="${string}.._"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    ${command} 2>&1 > ${output_file} & # execute command in the background.
+    ${command} > ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
         {
