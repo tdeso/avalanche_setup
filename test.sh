@@ -13,5 +13,6 @@ else
     cd avalanche_setup;
     sudo bash install.sh;
     cd;
-    find $HOME/avalanche_setup/ ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -delete 
+    rm -rf go1.13.linux-amd64.tar.gz;
+    find -path $HOME/avalanche_setup/ ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -delete 
 fi
