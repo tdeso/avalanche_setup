@@ -237,9 +237,10 @@ function installDependencies() {
 
 # Set permissions and install basic avalanche cli
 #function importScripts() {
-  sudo chmod 500 update.sh
-  sudo chmod 500 monitor.sh
-  sudo chmod 400 library.sh
+
+  sudo chmod 500 ${current_dir}/update.sh
+  sudo chmod 500 ${current_dir}monitor.sh
+  sudo chmod 400 ${current_dir}library.sh
   cd $HOME
   git clone https://github.com/jzu/bac.git 
   sudo install -m 755 $HOME/bac/bac /usr/local/bin
@@ -249,6 +250,7 @@ function installDependencies() {
 
 # Install go and setup $GOPATH
 function goInstall () {
+  cd $HOME  
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
   echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
@@ -424,7 +426,7 @@ function progress() {
     string2="${string}.·."
     string3="${string}..·"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    ${command} > ${output_file} 2>&1 & # execute command in the background.
+    ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
         {
