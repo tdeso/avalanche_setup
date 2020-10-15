@@ -20,11 +20,6 @@ output_file="output.log"
 
 function main() {
 
-    if ask "Do you wish to change the root password?" N; then
-        promptForRootPassword
-        echo "${rootpassword}" | passwd root
-    fi
-
     read -rp "Enter the username of the new user account: " username
 
     promptForPassword
@@ -40,6 +35,11 @@ function main() {
         changePort
     fi
     
+    if ask "Do you wish to change the root password?" N; then
+        promptForRootPassword
+        echo "${rootpassword}" | passwd root
+    fi
+
     echo 'Running setup script...'
     logTimestamp "${output_file}"
 
