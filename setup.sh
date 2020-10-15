@@ -36,7 +36,7 @@ function main() {
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 
     if ask "Do you wish to change the SSH port ?" N; then
-        changeport
+        changePort
     fi
     
     echo 'Running setup script...'
