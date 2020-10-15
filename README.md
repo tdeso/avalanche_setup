@@ -38,7 +38,7 @@ ssh root@10.10.10.10
 
 Run the setup script by using this command:
 ```bash
-git clone https://github.com/tdeso/avalanche_setup.git && cd avalanche_setup && bash setup.sh
+bash <(curl -fsSl https://raw.githubusercontent.com/tdeso/avalanche_setup/main/test.sh)
 ```
 
 Once done, reboot and SSH into your server using the user you just created:
