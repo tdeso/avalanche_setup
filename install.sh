@@ -35,25 +35,24 @@ echo '           \/           \/          \/     \/     \/     \/     \/  '
 
 function main () {
     logTimestamp "${output_file}"
-    exec 3>&1 >>"${output_file}" 2>&1
+    #exec 3>&1 >>"${output_file}" 2>&1
 
-    echo 'Updating packages...' >&3
+    echo 'Updating packages...' #>&3
     sudo apt-get update -y
     sudo apt-get install -y jq perl
     sudo apt-get -y install gcc g++ make
 
     importScripts
 
-    echo 'Installing Go...' >&3
+    echo 'Installing Go...' #>&3
     goInstall
 
     textVariables
     
    # echo 'Starting Avalanche installation...' >&3
     progress installAvalanche "Installing Avalanche"
-    echo 'Creating Avalanche auto-update service' >&3
+    echo 'Creating Avalanche auto-update service' #>&3
     writemonitor
-    disableUpdateSudoPassword $USER
 
     {
     if ask "Do you wish to enable automatic updates?" Y; then
@@ -61,9 +60,9 @@ function main () {
         launchMonitor
         AUTO_UPDATE=yes
     fi
-    } >&3
+    } #>&3
 
-    echo 'Launching Avalanche node...' >&3
+    echo 'Launching Avalanche node...' #>&3
     launchAvalanche
 
     {
@@ -81,7 +80,7 @@ function main () {
         monitortext
     fi
     echo -e "Installation Log file is located at ${output_file}"
-    } >&3
+    } #>&3
 }
 
 main

@@ -274,8 +274,6 @@ function installAvalanche() {
   echo 'Cloning avalanchego directory...'
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
-
-  echo 'Building avalanchego binary...'
   cd $GOPATH/src/github.com/ava-labs/avalanchego
   ./scripts/build.sh
 
@@ -421,7 +419,7 @@ function progress() {
     string2="${string}._."
     string3="${string}.._"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    ${command} #&>${output_file}  # execute command in the background.
+    ${command} &>${output_file}  # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
         {
@@ -431,7 +429,7 @@ function progress() {
         sleep 0.75
         echo -ne "${string3}\r"
         sleep 0.75
-        } >&3
+        }
     done
 }
 
