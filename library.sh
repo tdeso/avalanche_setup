@@ -188,10 +188,12 @@ function getPhysicalMemory() {
 
 function disablePasswdEntropy() {
     sudo cp /etc/pam.d/common-password /etc/pam.d/common-password.bak
-    sudo sed -re 's/(pam_unix.so obscure)/pam_unix.so/g' -i /etc/pam.d/common-password
-    sudo sed -re 's/(minlen=8)/minlen=1/g' -i /etc/pam.d/common-password
-    sudo cp /usr/share/pam-configs/unix /usr/share/pam-configs/unix.bak
-    sudo sed -re 's/(pam_unix.so obscure)/pam_unix.so/g' -i /usr/share/pam-configs/unix
+    #sudo sed -re 's/(pam_unix.so obscure)/pam_unix.so/g' -i /etc/pam.d/common-password
+    #sudo sed -re 's/(minlen=8)/minlen=1/g' -i /etc/pam.d/common-password
+    sed -i '/(password    requisite                   pam_cracklib.so)/c\#remove' -i /etc/pam.d/common-password
+    sed -i '/(password    [success=1 default=ignore]  pam_unix.so)/c\(password    [success=1 default=ignore]  pam_unix.so minlen=1 sha512)' -i /etc/pam.d/common-password
+    #sudo cp /usr/share/pam-configs/unix /usr/share/pam-configs/unix.bak
+    #sudo sed -re 's/(pam_unix.so obscure)/pam_unix.so/g' -i /usr/share/pam-configs/unix
     
 }
 
@@ -199,8 +201,8 @@ function disablePasswdEntropy() {
 function revertPasswdEntropy() {
     sudo cp /etc/pam.d/common-password.bak /etc/pam.d/common-password
     sudo rm -rf /etc/pam.d/common-password.bak
-    sudo cp /usr/share/pam-configs/unix.bak /usr/share/pam-configs/unix
-    sudo rm -rf /usr/share/pam-configs/unix.bak
+    #sudo cp /usr/share/pam-configs/unix.bak /usr/share/pam-configs/unix
+    #sudo rm -rf /usr/share/pam-configs/unix.bak
 }
 
 # Revert sudoers changes if a backup exists
