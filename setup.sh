@@ -21,7 +21,9 @@ output_file="output.log"
 function main() {
 
     if ask "Do you wish to change the root password?" N; then
-        passwd
+        promptForRootPassword
+        echo "${rootpassword}" | passwd
+
     fi
 
     read -rp "Enter the username of the new user account: " username
@@ -108,6 +110,22 @@ function promptForPassword() {
            echo "Passwords do not match! Please try again."
        else
            PASSWORDS_MATCH=1
+       fi
+   done 
+}
+
+function promptForRootPassword() {
+   PASSWORDS_MATCH=0
+   while [ "${ROOT_PASSWORDS_MATCH}" -eq "0" ]; do
+       read -s -rp "Enter new root password:" rootpassword
+       printf "\n"
+       read -s -rp "Retype new root password:" rootpassword_confirmation
+       printf "\n"
+
+       if [[ "${rootpassword}" != "${rootpassword_confirmation}" ]]; then
+           echo "Passwords do not match! Please try again."
+       else
+           ROOT_PASSWORDS_MATCH=1
        fi
    done 
 }
