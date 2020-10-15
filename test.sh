@@ -6,6 +6,7 @@ if [[ $USER == "root" ]]; then
     apt-get -y install git ;
     cd ~;
     git clone https://github.com/tdeso/avalanche_setup.git;
+    sleep 2;
     bash ~/avalanche_setup/setup.sh;
     rm -rf ~/avalanche_setup
 
