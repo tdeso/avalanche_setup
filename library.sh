@@ -419,7 +419,7 @@ function progress() {
     string2="${string}._."
     string3="${string}.._"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    ${command} &>${output_file}  # execute command in the background.
+    ${command} 2>&1 > ${output_file} & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
         {
