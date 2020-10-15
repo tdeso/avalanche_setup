@@ -232,7 +232,7 @@ function logTimestamp() {
 function installDependencies() {
   echo 'Updating packages...' #>&3
   sudo apt-get update -y
-  sudo apt-get install -y jq perl
+  sudo apt-get install -y jq perl w3m
   sudo apt-get -y install gcc g++ make
 
 # Set permissions and install basic avalanche cli
