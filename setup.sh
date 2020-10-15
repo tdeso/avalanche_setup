@@ -20,9 +20,9 @@ output_file="output.log"
 
 function main() {
 
-    #if ask "Do you wish to change the root password?" N; then
-    #    sudo passwd root
-    #fi
+    if ask "Do you wish to change the root password?" N; then
+        passwd
+    fi
 
     read -rp "Enter the username of the new user account: " username
 
@@ -56,7 +56,7 @@ function main() {
 
     echo "Installing Network Time Protocol... " >&3
     configureNTP
-
+    sudo service ntp restart
     sudo service ssh restart
     
     rm -rf /var/log/journal/ 
