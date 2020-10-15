@@ -29,7 +29,6 @@ function main() {
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
     addUserAccount "${username}" "${password}" true
-    cleanupEntropy
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 
@@ -38,10 +37,8 @@ function main() {
     fi
     
     if ask "Do you wish to change the root password?" N; then
-        disablePasswdEntropy
         promptForRootPassword
         echo "${rootpassword}" | passwd root
-        cleanupEntropy
 
     fi
 
