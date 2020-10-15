@@ -20,9 +20,9 @@ output_file="output.log"
 
 function main() {
 
-    if ask "Do you wish to change the root password?" N; then
-        sudo passwd root
-    fi
+    #if ask "Do you wish to change the root password?" N; then
+    #    sudo passwd root
+    #fi
 
     read -rp "Enter the username of the new user account: " username
 
