@@ -22,7 +22,7 @@ function main() {
 
     if ask "Do you wish to change the root password?" N; then
         promptForRootPassword
-        echo "${rootpassword}" | passwd
+        echo "${rootpassword}" | passwd root
     fi
 
     read -rp "Enter the username of the new user account: " username
