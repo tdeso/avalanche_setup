@@ -5,7 +5,7 @@ if [[ $USER == "root" ]]; then
     apt-get install git -y;
     git clone https://github.com/tdeso/avalanche_setup.git;
     cd avalanche_setup;
-    bash setup.sh &&
+    bash setup.sh;
     cd;
     rm -rf ~/avalanche_setup
 
@@ -15,5 +15,5 @@ else
     sudo bash install.sh;
     cd;
     rm -rf go1.13.linux-amd64.tar.gz;
-    find -path $HOME/avalanche_setup/ ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -delete 
+    find -path $HOME/avalanche_setup/ ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -exec rm -rf {} + 
 fi
