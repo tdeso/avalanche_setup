@@ -4,9 +4,7 @@ if [[ $USER == "root" ]]; then
     apt-get -y update && apt-get -y upgrade;
     apt-get install git -y;
     git clone https://github.com/tdeso/avalanche_setup.git;
-    cd avalanche_setup;
-    bash setup.sh;
-    cd;
+    bash ~/avalanche_setup/setup.sh;
     rm -rf ~/avalanche_setup
 
 else
