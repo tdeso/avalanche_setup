@@ -280,12 +280,21 @@ function installAvalanche() {
   ./scripts/build.sh
 
   echo 'Creating Avalanche node service...'
+
 PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
-sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
-ARG1=--public-ip='$PUBLIC_IP'
-ARG2=--snow-quorum-size=14
-ARG3=--snow-virtuous-commit-threshold=15
-EOF'
+sudo mkdir -p /etc/systemd/system/avalanche.service.d/
+{ echo "[Service]";
+  echo "Environment";
+  echo "ARG1=--public-ip=$PUBLIC_IP";
+  echo "ARG2=--snow-quorum-size=14";
+  echo "ARG3=--snow-virtuous-commit-threshold=15";
+} | sudo tee /etc/systemd/system/avalanche.service.d/launch_arguments.conf
+
+#sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
+#ARG1=--public-ip='$PUBLIC_IP'
+#ARG2=--snow-quorum-size=14
+#ARG3=--snow-virtuous-commit-threshold=15
+#EOF'
 
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/avalanche.service
 [Unit]
@@ -321,7 +330,6 @@ User='$USER'
 Group='$USER'
 WorkingDirectory='$HOME'
 ExecStart=+/bin/bash '$HOME'/avalanche_setup/monitor.sh
-PrivateTmp=true
 TimeoutStopSec=60s
 TimeoutStartSec=10s
 [Install]
@@ -409,7 +417,7 @@ function progress() {
     string1="${string}_.."
     string2="${string}._."
     string3="${string}.._"
-    ${function}
+    ${function} &
     {
     while [ $? -ne 0 ]; do
     echo -ne "${string1}\r"
@@ -422,40 +430,29 @@ function progress() {
     done
 }
 
-function progress_() {
+# Look for the 4 common signals that indicate this script was killed.
+# If the background command was started, kill it, too.
+function progress() {
     local command=${1}
     local string=${2}
 
-    ${command} &>> ${output_file} 
-    PID=$!
-    i=1
-    sp="/-\|"
-    echo -n ' '
-    while [ -d /proc/$PID ]
-    do
-    printf "${string} \b${sp:i++%${#sp}:1}"
+    string1="${string}_.."
+    string2="${string}._."
+    string3="${string}.._"
+    trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
+    ${command} #&>${output_file}  # execute command in the background.
+    # The /proc directory exists while the command runs.
+    while [ -e /proc/$! ]; do
+        {
+        echo -ne "${string1}\r"
+        sleep 0.75
+        echo -ne "${string2}\r"
+        sleep 0.75
+        echo -ne "${string3}\r"
+        sleep 0.75
+        } >&3
     done
 }
-
-function spinner_() {
-    function show_spinner()
-    {
-    local -r pid="${1}"
-    local -r delay='0.75'
-    local spinstr='\|/-'
-    local temp
-    while ps a | awk '{print $1}' | grep -q "${pid}"; do
-        temp="${spinstr#?}"
-        printf " [%c]  " "${spinstr}"
-        spinstr=${temp}${spinstr%"${temp}"}
-        sleep "${delay}"
-        printf "\b\b\b\b\b\b"
-    done
-    printf "    \b\b\b\b"
-    }
-("$@") &
-show_spinner "$!"    
-}    
 
 function reset() {
     sudo rm -rf * && sudo rm -rf .avalanchego/ && sudo rm -rf /etc/systemd/system/avalanche.service && sudo rm -rf /etc/systemd/system/monitor.service && sudo rm -rf /etc/.avalanche.conf
