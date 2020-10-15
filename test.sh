@@ -9,7 +9,7 @@ if [[ $USER == "root" ]]; then
     cd
     rm -rf avalanche_setup
 else
-    git clone https://github.com/tdeso/avalanche_setup &
+    git clone https://github.com/tdeso/avalanche_setup
     cd avalanche_setup
     sudo bash install.sh
     cd
