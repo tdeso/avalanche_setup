@@ -26,7 +26,10 @@ function main() {
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
     # Remove already existing users
+    if [[ $(ls /home/) ]]; then
     ls /home/ | deluser --remove-home
+    fi
+
     addUserAccount "${username}" "${password}" true
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
