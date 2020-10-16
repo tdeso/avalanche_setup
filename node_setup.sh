@@ -29,7 +29,6 @@ function main() {
 
     # Remove already existing users
     if [[ $(ls /home/) ]]; then
-    ls /home/ | killall -u
     ls /home/ | deluser -f --remove-home
     fi
 
