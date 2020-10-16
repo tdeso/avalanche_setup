@@ -282,9 +282,8 @@ function goInstall () {
   echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
   echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
-  export PATH=$PATH:/usr/local/go/bin
   export GOPATH=$HOME/go
-  export PATH=$PATH:$GOPATH/bin
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 }
 
 # Install Avalanche from source:
