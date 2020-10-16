@@ -10,7 +10,7 @@ function getCurrentDir() {
 }
 
 function includeDependencies() {
-    source "${current_dir}/library.sh"
+    source "${HOME}/avalanche_setup/library.sh"
     source "${HOME}/.bash_profile"
 }
 
@@ -19,7 +19,7 @@ function node_version () {
 }
 
 function monitorStatus () {
-  systemctl -a list-units | grep -F 'monitor' | awk 'NR ==1 {print $4}' | tr -d \"
+  systemctl -a list-units | grep -F 'autoupdate' | awk 'NR ==1 {print $4}' | tr -d \"
 }
 
 function updateAvalanche() {
@@ -29,7 +29,7 @@ function updateAvalanche() {
   ./scripts/build.sh
   sudo systemctl start avalanche 
   if [[ "${MONITOR_STATUS}" == "running" ]]; then    
-  sudo systemctl restart monitor    
+  sudo systemctl restart autoupdate    
   fi
   NODE_STATUS=$(eval node_status)
   while [[ -z $NODE_VERSION2 ]]; do

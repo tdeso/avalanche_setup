@@ -328,7 +328,7 @@ EOF'
 # monitor.sh reads the log and launches the update.sh script 
 # when a string signaling a new avalanchego client is available
 function monitorService () {
-sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
+sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/autoupdate.service
 [Unit]
 Description=Avalanche updating service
 After=network.target
@@ -344,10 +344,10 @@ WantedBy=multi-user.target
 EOF'
 }
 
-# Launch monitor service
+# Launch update service
 function launchMonitor () {
-  sudo systemctl enable monitor
-  sudo systemctl start monitor    
+  sudo systemctl enable autoupdate
+  sudo systemctl start autoupdate    
 }
 
 # Get Avalanche NodeID
@@ -396,11 +396,11 @@ function launchedFailedtext() {
 function autoUpdatetext() {
   echo ''
   echo 'To disable automatic updates, type the following command:'
-  echo '    sudo systemctl stop monitor'
+  echo '    sudo systemctl stop autoupdate'
   echo 'To check the node updating service status, type the following command:'
-  echo '    sudo systemctl status monitor'
+  echo '    sudo systemctl status autoupdate'
   echo 'To check its logs, type the following command:'
-  echo '    journalctl -u monitor'
+  echo '    journalctl -u autoupdate'
 }
 
 function updatetext() {
@@ -408,7 +408,7 @@ function updatetext() {
   echo "To update your node, run the update.sh script located at $HOME by using the following command:"
   echo "    cd $HOME/avalanche_setup && ./update.sh"
   echo 'To enable automatic updates, type the following command:'
-  echo '    sudo systemctl enable monitor && sudo systemctl start monitor'
+  echo '    sudo systemctl enable autoupdate && sudo systemctl start autoupdate'
 }
 
 function monitortext () {
