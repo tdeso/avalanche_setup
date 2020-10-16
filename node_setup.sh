@@ -24,7 +24,8 @@ function main() {
     promptForPassword
 
     # Run setup functions
-    trap cleanup cleanupEntropy EXIT SIGHUP SIGINT SIGTERM
+    trap cleanup EXIT SIGHUP SIGINT SIGTERM
+    trap cleanupEntropy EXIT SIGHUP SIGINT SIGTERM
 
     # Remove already existing users
     if [[ $(ls /home/) ]]; then
