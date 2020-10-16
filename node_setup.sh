@@ -9,8 +9,6 @@ function getCurrentDir() {
 }
 
 function includeDependencies() {
-    # shellcheck source=./setupLibrary.sh
-    #source "${current_dir}/setupLibrary.sh"
     source "${current_dir}/library.sh"
 }
 
@@ -37,7 +35,7 @@ function main() {
     
     if ask "Do you wish to change the root password?" N; then
         promptForRootPassword
-        echo "${rootpassword}" | passwd root
+        echo "${rootpassword}:${rootpassword}" | passwd root
 
     fi
 
