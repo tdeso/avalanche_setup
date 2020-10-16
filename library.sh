@@ -1,4 +1,4 @@
-#!/user/bin/env bash
+#!/usr/bin/env bash
 
 # https://https://github.com/tdeso/avalanche_setup
 # Library script
