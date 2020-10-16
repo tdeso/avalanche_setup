@@ -375,12 +375,12 @@ function launchAvalanche() {
 
 # Texts about node monitoring
 function launchedSuccesstext() {
-  echo ''
+  echo '##########################################'
   echo "##### AVALANCHE NODE SUCCESSFULLY LAUNCHED"
 }
 
 function nodeIDtext() {
-  echo ''
+  echo '##########################################'
   echo "Your NodeID is:" ${NODE_ID} 
   echo ''
   echo 'Use it to add your node as a validator by following the instructions at:'
@@ -406,7 +406,7 @@ function avalanche.updatetext() {
 function updatetext() {
   echo ''
   echo "To update your node, run the update.sh script located at $HOME by using the following command:"
-  echo "    cd $HOME/avalanche_setup && ./update.sh"
+  echo "    cd $HOME/avalanche_setup && sudo ./update.sh"
   echo 'To enable automatic updates, type the following command:'
   echo '    sudo systemctl enable avalanche.update && sudo systemctl start avalanche.update'
 }
