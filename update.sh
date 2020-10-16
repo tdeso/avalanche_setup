@@ -23,20 +23,23 @@ function monitorStatus () {
 }
 
 function updateAvalanche() {
+  sudo systemctl stop avalanche
   cd ${GOPATH}/src/github.com/ava-labs/avalanchego
   git pull
   ./scripts/build.sh
-  sudo systemctl restart avalanche 
+  sudo systemctl start avalanche 
   if [[ "${MONITOR_STATUS}" == "running" ]]; then    
   sudo systemctl restart monitor    
   fi
   NODE_STATUS=$(eval node_status)
-  sleep 1
-  NODE_VERSION2=$(eval node_version)
+  while [[ -z $NODE_VERSION2 ]]; do
+      sleep 0.2
+      NODE_VERSION2=$(eval node_version)
+  done
 }
 
 function updateSuccesstext() {
-  echo "##### AVALANCHE NODE SUCCESSFULLY UPDATED TO " ${NODE_VERSION2}   
+  echo "##### AVALANCHE NODE SUCCESSFULLY UPDATED TO" ${NODE_VERSION2}  
 }
 
 function updateFailedtext() {

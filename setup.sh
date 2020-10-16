@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Bash script that automates setting up an Avalanche node on a Ubuntu 18.04.X server
 # For more information, see: https://https://github.com/tdeso/avalanche_setup
