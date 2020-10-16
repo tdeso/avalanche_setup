@@ -283,16 +283,6 @@ function goInstall () {
   export GOPATH=$HOME/go
 }
 
-# Set some variables for prettier output in terminal
-function textVariables() {
-  # Setting some variables before sourcing .bashrc
-  echo "export bold=\$(tput bold)" >> $HOME/.bashrc
-  echo "export underline=\$(tput smul)" >> $HOME/.bashrc
-  echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
-  # end of variables
-  source $HOME/.bashrc
-}
-
 # Install Avalanche from source:
 # Clone the avalanchego repo
 # Build the binary
@@ -386,21 +376,21 @@ function launchAvalanche() {
 # Texts about node monitoring
 function launchedSuccesstext() {
   echo ''
-  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY LAUNCHED${normal}"
+  echo "##### AVALANCHE NODE SUCCESSFULLY LAUNCHED"
 }
 
 function nodeIDtext() {
   echo ''
-  echo "${bold}Your NodeID is:" ${NODE_ID} ${normal}
+  echo "Your NodeID is:" ${NODE_ID} 
   echo ''
   echo 'Use it to add your node as a validator by following the instructions at:'
-  echo "${underline}https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-with-the-wallet${normal}"
+  echo "https://docs.avax.network/v1.0/en/tutorials/adding-validators/#add-a-validator-with-the-wallet"
   echo ''
 }
 
 function launchedFailedtext() {
   echo ''
-  echo "${bold}##### AVALANCHE NODE LAUNCH FAILED${normal}"
+  echo "##### AVALANCHE NODE LAUNCH FAILED"
 }
 
 function autoUpdatetext() {

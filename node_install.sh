@@ -30,13 +30,9 @@ function main () {
     cd $HOME
     logTimestamp "${output_file}"
 
-    #progress 
-    installDependencies #"Installing dependencies"
-    #progress 
-    goInstall #"Installing Go"
-    textVariables
-    #progress 
-    installAvalanche #"Installing Avalanche, it may take some time"
+    progress installDependencies "Installing dependencies"
+    progress goInstall "Installing Go"
+    progress installAvalanche "Installing Avalanche, it may take some time"
 
     echo 'Creating Avalanche service...'
     avalancheService >> ${output_file} 2>&1
