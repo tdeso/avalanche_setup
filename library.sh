@@ -450,7 +450,7 @@ function progress() {
     #if [[ -f "$HOME/.bashrc" ]]; then
     #    source $HOME/.bashrc >> ${output_file} 2>&1 &
     #fi
-    { source $HOME/.bashrc && ${command} } >> ${output_file} 2>&1 & # execute command in the background.
+    (source $HOME/.bashrc && ${command}) >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
         {
