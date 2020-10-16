@@ -38,7 +38,7 @@ ssh root@10.10.10.10
 
 Run the setup script by using this command:
 ```bash
-bash <(curl -fsSl https://raw.githubusercontent.com/tdeso/avalanche_setup/main/test.sh)
+bash <(curl -fsSl https://raw.githubusercontent.com/tdeso/avalanche_setup/main/setup.sh)
 ```
 
 Once done, reboot and SSH into your server using the user you just created:
@@ -50,7 +50,7 @@ ssh [user]@10.10.10.10 -p [ssh_port]
 
 Run the installation script
 ```bash
-bash <(curl -fsSl https://raw.githubusercontent.com/tdeso/avalanche_setup/main/test.sh)
+bash <(curl -fsSl https://raw.githubusercontent.com/tdeso/avalanche_setup/main/setup.sh)
 ```
 
 Save the NodeID and follow the instructions at:  
