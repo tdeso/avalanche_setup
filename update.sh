@@ -14,10 +14,6 @@ function includeDependencies() {
     source "${HOME}/.bashrc"
 }
 
-current_dir=$(getCurrentDir)
-includeDependencies
-update_output_file="${HOME}/update_"$(date +%FT%T)".log"
-
 function node_version () {
   bac info.getNodeVersion | egrep -o 'avalanche.*"}' | sed 's/avalanche//' | tr -d '\/"}'
 }
@@ -40,7 +36,7 @@ function updateAvalanche() {
 }
 
 function updateSuccesstext() {
-  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY UPDATED TO "${NODE_VERSION2} ${normal}  
+  echo "${bold}##### AVALANCHE NODE SUCCESSFULLY UPDATED TO " ${NODE_VERSION2} ${normal}  
 }
 
 function updateFailedtext() {
@@ -58,11 +54,11 @@ function main () {
 
     updateAvalanche
 
-    if [[ "${NODE_STATUS}" == "running" && "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
+    if [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
         updateSuccesstext
-    elif [[ "${NODE_STATUS}" == "running" && "${NODE_VERSION1}" == "${NODE_VERSION2}" ]]; then
+    elif [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" == "${NODE_VERSION2}" ]]; then
         updateFailedtext
-    elif [[ "${NODE_STATUS}" == "exited" ]]; then
+    elif [[ "${NODE_STATUS}" == "exited" || "failed "]]; then
         launchedFailedtext
     fi
     monitortext
@@ -74,7 +70,10 @@ function main () {
     fi
 }
 
+current_dir=$(getCurrentDir)
+includeDependencies
+update_output_file="${HOME}/update_"$(date +%FT%T)".log"
 NODE_VERSION1=$(eval node_version)
 MONITOR_STATUS=$(eval monitorStatus)
-logTimestamp "${output_file}"
+logTimestamp "${update_output_file}"
 main 2>> ${update_output_file}

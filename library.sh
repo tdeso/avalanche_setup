@@ -282,6 +282,9 @@ function goInstall () {
   export PATH=$PATH:/usr/local/go/bin
   export GOPATH=$HOME/go
   export PATH=$PATH:$GOPATH/bin
+  export normal=\$(tput sgr0)
+  export underline=\$(tput smul)
+  export bold=\$(tput bold)
   go version
   go env -w GOPATH=$HOME/go
 }
