@@ -287,10 +287,9 @@ function goInstall () {
 function textVariables() {
   # Setting some variables before sourcing .bashrc
   go env -w GOPATH=$HOME/go
-  #echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
-  #\$GOROOT/bin:
+  echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
   echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
-  echo "export PATH=$PATH:\$GOPATH/bin:" >> $HOME/.bashrc  
+  echo "export PATH=$PATH:\$GOPATH/bin:\$GOROOT/bin" >> $HOME/.bashrc  
   echo "export bold=\$(tput bold)" >> $HOME/.bashrc
   echo "export underline=\$(tput smul)" >> $HOME/.bashrc
   echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc

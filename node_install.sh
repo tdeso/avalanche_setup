@@ -51,7 +51,6 @@ function main () {
     echo 'Launching Avalanche node...'
     launchAvalanche >> ${output_file} 2>&1
 
-    {
     if [[ "${NODE_STATUS}" == "running" ]]; then
         launchedSuccesstext
         if [[ "${AUTO_UPDATE}" == "yes" ]]; then
@@ -66,7 +65,6 @@ function main () {
         monitortext
     fi
     echo -e "Installation Log file is located at ${output_file}"
-    }
 }
 
 main
