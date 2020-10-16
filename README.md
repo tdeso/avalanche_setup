@@ -50,7 +50,7 @@ ssh [user]@10.10.10.10 -p [ssh_port]
 
 Run the installation script
 ```bash
-git clone https://github.com/tdeso/avalanche_setup.git && cd avalanche_setup && bash install.sh
+bash <(curl -fsSl https://raw.githubusercontent.com/tdeso/avalanche_setup/main/test.sh)
 ```
 
 Save the NodeID and follow the instructions at:  
