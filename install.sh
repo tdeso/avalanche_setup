@@ -31,24 +31,25 @@ function main () {
     logTimestamp "${output_file}"
 
     progress installDependencies "Installing dependencies"
-
     progress goInstall "Installing Go"
 
-    textVariables #>> ${output_file} 2>&1 &
+    textVariables
     
     progress installAvalanche "Installing Avalanche, it may take some time"
 
+    echo 'Creating Avalanche service...'
+    avalancheService ${output_file} 2>&1
     echo 'Creating Avalanche auto-update service...'
-    writemonitor >> ${output_file} 2>&1 &
+    monitorService >> ${output_file} 2>&1
     
     if ask "Do you wish to enable automatic updates?" Y; then
         echo 'Launching Avalanche monitoring service...'
-        launchMonitor >> ${output_file} 2>&1 &
+        launchMonitor >> ${output_file} 2>&1 
         AUTO_UPDATE=yes
     fi
 
     echo 'Launching Avalanche node...'
-    launchAvalanche
+    launchAvalanche ${output_file} 2>&1
 
     {
     if [[ "${NODE_STATUS}" == "running" ]]; then

@@ -275,36 +275,42 @@ function goInstall () {
   echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
   source $HOME/.profile
   go version
-  go env -w GOPATH=$HOME/go
-  echo "export GOROOT=/usr/local/go" >> $HOME/.bash_profile
-  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
-  echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bash_profile
-  source $HOME/.bash_profile
-  export GOPATH=$HOME/go
+  #go env -w GOPATH=$HOME/go
+  #echo "export GOROOT=/usr/local/go" >> $HOME/.bash_profile
+  #echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
+  #echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bash_profile
+  #source $HOME/.bash_profile
+  #export GOPATH=$HOME/go
 }
 
 # Set some variables for prettier output in terminal
 function textVariables() {
   # Setting some variables before sourcing .bash_profile
+  go env -w GOPATH=$HOME/go
+  echo "export GOROOT=/usr/local/go" >> $HOME/.bash_profile
+  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
+  echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bash_profile  
   echo "export bold=\$(tput bold)" >> $HOME/.bash_profile
   echo "export underline=\$(tput smul)" >> $HOME/.bash_profile
   echo "export normal=\$(tput sgr0)" >> $HOME/.bash_profile
-  # end of variables
+  export GOPATH=$HOME/go
   source $HOME/.bash_profile
+  
 }
 
-# Install Avalanche
+# Install Avalanche from source:
 # Clone the avalanchego repo
 # Build the binary
-# Create a systemd service to run avalanchego in background and restart automatically
 function installAvalanche() {
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
   cd $GOPATH/src/github.com/ava-labs/avalanchego
   ./scripts/build.sh
+}
 
-  echo 'Creating Avalanche node service...'
-
+# Create a systemd service to run avalanchego with auto restart settings and launch arguments
+function avalancheService() {
+    echo 'Creating Avalanche node service...'
 PUBLIC_IP=$(ip route get 8.8.8.8 | sudo sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 sudo mkdir -p /etc/systemd/system/avalanche.service.d/
 { echo "[Service]";
@@ -312,14 +318,6 @@ sudo mkdir -p /etc/systemd/system/avalanche.service.d/
   echo "Environment="ARG2=--snow-quorum-size=14"";
   echo "Environment="ARG3=--snow-virtuous-commit-threshold=15""
 } | sudo tee /etc/systemd/system/avalanche.service.d/launch_arguments.conf
-
-#sudo bash -c 'cat <<EOF > /etc/.avalanche.conf
-#ARG1=--public-ip='$PUBLIC_IP'
-#ARG2=--snow-quorum-size=14
-#ARG3=--snow-virtuous-commit-threshold=15
-#EOF'
-
-#EnvironmentFile=/etc/.avalanche.conf
 
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/avalanche.service
 [Unit]
@@ -344,7 +342,7 @@ EOF'
 # Create a systemd service that runs monitor.sh script
 # monitor.sh reads the log and launches the update.sh script 
 # when a string signaling a new avalanchego client is available
-function writemonitor () {
+function monitorService () {
 sudo USER='$USER' bash -c 'cat <<EOF > /etc/systemd/system/monitor.service
 [Unit]
 Description=Avalanche updating service
@@ -421,7 +419,7 @@ function autoUpdatetext() {
 function updatetext() {
   echo ''
   echo "To update your node, run the update.sh script located at $HOME by using the following command:"
-  echo "    cd $HOME && ./update.sh"
+  echo "    cd $HOME/avalanche_setup && ./update.sh"
   echo 'To enable automatic updates, type the following command:'
   echo '    sudo systemctl enable monitor && sudo systemctl start monitor'
 }
@@ -432,18 +430,20 @@ function monitortext () {
   echo '    sudo systemctl status avalanche'
   echo '    journalctl -u avalanche'
   echo 'To change the node launch arguments, edit the following file:'
-  echo '    /etc/.avalanche.conf'
+  echo '    /etc/systemd/system/avalanche.service.d/launch_arguments.conf'
 }
 
-# Look for the 4 common signals that indicate this script was killed.
-# If the background command was started, kill it, too.
+# Display an animation while process executes in background.
+# About trap command:
+# >Look for the 4 common signals that indicate this script was killed.
+# >If the background command was started, kill it, too.
 function progress() {
     local command=${1}
     local string=${2}
 
-    string1="${string}⸳.. " #.⸳··‧᛫ #·.." ‧·· ·· ... ·᛫᛫
-    string2="${string}.⸳. " #.·." ·‧· ᛫·᛫
-    string3="${string}..⸳" #..·" ᛫᛫· ··‧    
+    string1="${string}·.. "
+    string2="${string}.·. "
+    string3="${string}..·"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
     if [[ -f "$HOME/.bash_profile" ]]; then
         source $HOME/.bash_profile
@@ -461,8 +461,4 @@ function progress() {
         }
     done
     echo "${string}..."
-}
-
-function reset() {
-    sudo rm -rf * && sudo rm -rf .avalanchego/ && sudo rm -rf /etc/systemd/system/avalanche.service && sudo rm -rf /etc/systemd/system/monitor.service && sudo rm -rf /etc/.avalanche.conf && sudo rm -rf /etc/systemd/system/avalanche.service.d/launch_arguments.conf && rm -rf .bash_profile
 }
