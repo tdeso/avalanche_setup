@@ -272,13 +272,6 @@ function goInstall () {
   cd $HOME  
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
-  #echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
-  #echo "export GOPATH=$HOME/go" >> $HOME/.profile
-  #echo "export PATH=$PATH:\$GOPATH/bin:" >> $HOME/.bashrc  
-  #source $HOME/.profile
-}
-
-function variables() {
   echo "export bold=\$(tput bold)" >> $HOME/.bashrc
   echo "export underline=\$(tput smul)" >> $HOME/.bashrc
   echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
@@ -286,16 +279,9 @@ function variables() {
   echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
   echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:" >> $HOME/.bashrc
   source $HOME/.profile
-  #export GOPATH=$HOME/go
   go version
   go env -w GOPATH=$HOME/go
 }
-
-# Set some variables for prettier output in terminal
-#function textVariables() {
-  # Setting some variables before sourcing .bashrc 
-  #source $HOME/.profile 
-#}
 
 # Install Avalanche from source:
 # Clone the avalanchego repo

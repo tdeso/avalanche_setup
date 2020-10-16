@@ -32,24 +32,21 @@ function main () {
 
     progress installDependencies "Installing dependencies"
     progress goInstall "Installing Go"
-
-    variables
-    
     progress installAvalanche "Installing Avalanche, it may take some time"
 
     echo 'Creating Avalanche service...'
-    avalancheService >> ${output_file} 2>&1
+    avalancheService
     echo 'Creating Avalanche auto-update service...'
-    monitorService >> ${output_file} 2>&1
+    monitorService
     
     if ask "Do you wish to enable automatic updates?" Y; then
         echo 'Launching Avalanche monitoring service...'
-        launchMonitor >> ${output_file} 2>&1 
+        launchMonitor 
         AUTO_UPDATE=yes
     fi
 
     echo 'Launching Avalanche node...'
-    launchAvalanche >> ${output_file} 2>&1
+    launchAvalanche
 
     if [[ "${NODE_STATUS}" == "running" ]]; then
         launchedSuccesstext
