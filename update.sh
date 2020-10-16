@@ -53,9 +53,8 @@ function main () {
     echo '   /    |    \   /  / __ \|  |__/ __ \|   |  \  \___|   Y  \  ___/  '
     echo '   \____|__  /\_/  (____  /____(____  /___|  /\___  >___|  /\___  > '
     echo '           \/           \/          \/     \/     \/     \/     \/  '
-    echo 'Updating Avalanche Node...'
 
-    updateAvalanche
+    progress updateAvalanche "Updating Avalanche"
 
     if [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
         updateSuccesstext
@@ -75,8 +74,8 @@ function main () {
 
 current_dir=$(getCurrentDir)
 includeDependencies
-update_output_file="${HOME}/update_"$(date +%FT%T)".log"
+output_file="${HOME}/"$(date +%FT%T)".log"
 NODE_VERSION1=$(eval node_version)
 MONITOR_STATUS=$(eval monitorStatus)
-logTimestamp "${update_output_file}"
-main 2>> ${update_output_file}
+logTimestamp "${output_file}"
+main 2>> ${output_file}
