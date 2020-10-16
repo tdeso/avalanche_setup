@@ -40,7 +40,7 @@ function main() {
     
     if ask "Do you wish to change the root password?" N; then
         promptForRootPassword
-        echo "${rootpassword}:${rootpassword}" | passwd root
+        echo "root:${rootpassword}" | chpasswd
 
     fi
 
