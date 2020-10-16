@@ -3,12 +3,6 @@
 # https://https://github.com/tdeso/avalanche_setup
 # Bash script to update an Avalanche node that runs as a service named avalanche
 
-function getCurrentDir() {
-    local current_dir="${BASH_SOURCE%/*}"
-    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo "${current_dir}"
-}
-
 function includeDependencies() {
     source "${HOME}/avalanche_setup/library.sh"
     source "${HOME}/.bash_profile"
@@ -28,6 +22,7 @@ function updateAvalanche() {
   git pull
   ./scripts/build.sh
   sudo systemctl start avalanche 
+  MONITOR_STATUS=$(eval monitorStatus)
   if [[ "${MONITOR_STATUS}" == "running" ]]; then    
   sudo systemctl restart avalanche/update    
   fi
@@ -58,6 +53,7 @@ function main () {
     progress updateAvalanche "Updating Avalanche"
     NODE_STATUS=$(eval node_status)
     NODE_VERSION2=$(eval node_version)
+    MONITOR_STATUS=$(eval monitorStatus)
 
     if [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
         updateSuccesstext
@@ -75,7 +71,6 @@ function main () {
     fi
 }
 
-current_dir=$(getCurrentDir)
 includeDependencies
 output_file="${HOME}/"update_$(date +%FT%T)".log"
 NODE_VERSION1=$(eval node_version)
