@@ -12,12 +12,12 @@ if [[ $USER == "root" ]]; then
     bash ~/avalanche_setup/node_setup.sh;
     rm -rf ~/avalanche_setup
 
-else
+    else
 
     git clone https://github.com/tdeso/avalanche_setup.git;
     sudo bash ~/avalanche_setup/node_install.sh;
     cd $HOME/avalanche_setup/;
     find . ! '(' -name 'update.sh' -o -name 'monitor.sh' -o -name 'library.sh' ')' -exec rm -rf {} +
-    cd;
+    cd ~
     rm -rf go1.13.linux-amd64.tar.gz;
 fi
