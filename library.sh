@@ -193,7 +193,7 @@ function disablePasswdEntropy() {
     sed 's/^[^#]*pam_cracklib/#&/' -i /etc/pam.d/common-password
 }
 
-
+# Revert password entropy changes
 function revertPasswdEntropy() {
     sudo cp /etc/pam.d/common-password.bak /etc/pam.d/common-password
     sudo rm -rf /etc/pam.d/common-password.bak
@@ -253,10 +253,6 @@ function installDependencies() {
   sudo apt-get update -y
   sudo apt-get install -y jq perl w3m
   sudo apt-get -y install gcc g++ make
-
-# Set permissions and install basic avalanche cli
-#function importScripts() {
-
   sudo chmod 500 ${current_dir}/update.sh
   sudo chmod 500 ${current_dir}/monitor.sh
   sudo chmod 400 ${current_dir}/library.sh
