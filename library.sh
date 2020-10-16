@@ -276,6 +276,9 @@ function goInstall () {
   echo "export underline=\$(tput smul)" >> $HOME/.bashrc
   echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
   echo "export PATH=$PATH:/usr/local/go/bin;" >> $HOME/.bashrc
+  source $HOME/.bashrc
+  go version
+  go env -w GOPATH=$HOME/go
   echo "export GOPATH=$HOME/go;" >> $HOME/.bashrc
   echo "export PATH=$PATH:$GOPATH/bin;" >> $HOME/.bashrc
   source $HOME/.bashrc
@@ -285,8 +288,7 @@ function goInstall () {
   export normal=\$(tput sgr0)
   export underline=\$(tput smul)
   export bold=\$(tput bold)
-  go version
-  go env -w GOPATH=$HOME/go
+
 }
 
 # Install Avalanche from source:
