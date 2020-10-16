@@ -11,7 +11,7 @@ function getCurrentDir() {
 
 function includeDependencies() {
     source "${current_dir}/library.sh"
-    source "${HOME}/.bash_profile"
+    source "${HOME}/.bashrc"
 }
 
 current_dir=$(getCurrentDir)

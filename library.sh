@@ -276,25 +276,26 @@ function goInstall () {
   source $HOME/.profile
   go version
   #go env -w GOPATH=$HOME/go
-  #echo "export GOROOT=/usr/local/go" >> $HOME/.bash_profile
-  #echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
-  #echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bash_profile
-  #source $HOME/.bash_profile
+  #echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
+  #echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
+  #echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bashrc
+  #source $HOME/.bashrc
   #export GOPATH=$HOME/go
 }
 
 # Set some variables for prettier output in terminal
 function textVariables() {
-  # Setting some variables before sourcing .bash_profile
+  # Setting some variables before sourcing .bashrc
   go env -w GOPATH=$HOME/go
-  echo "export GOROOT=/usr/local/go" >> $HOME/.bash_profile
-  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
-  echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bash_profile  
-  echo "export bold=\$(tput bold)" >> $HOME/.bash_profile
-  echo "export underline=\$(tput smul)" >> $HOME/.bash_profile
-  echo "export normal=\$(tput sgr0)" >> $HOME/.bash_profile
+  #echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
+  #\$GOROOT/bin:
+  echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
+  echo "export PATH=$PATH:\$GOPATH/bin:" >> $HOME/.bashrc  
+  echo "export bold=\$(tput bold)" >> $HOME/.bashrc
+  echo "export underline=\$(tput smul)" >> $HOME/.bashrc
+  echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
   export GOPATH=$HOME/go
-  source $HOME/.bash_profile
+  source $HOME/.bashrc
   
 }
 
@@ -380,10 +381,12 @@ function launchAvalanche() {
   sudo systemctl enable avalanche
   sudo systemctl start avalanche
   NODE_STATUS=$(eval node_status)
-  while [[ -z $NODE_ID ]]; do
-    sleep 0.2
-    NODE_ID=$(eval node_ID)
-  done 
+  if [[ "${NODE_STATUS}" == "running" ]]; then
+    while [[ -z $NODE_ID ]]; do
+        sleep 0.2
+        NODE_ID=$(eval node_ID)
+    done 
+  fi
 }
 
 # Texts about node monitoring
@@ -445,8 +448,8 @@ function progress() {
     string2="${string}.·. "
     string3="${string}..·"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    if [[ -f "$HOME/.bash_profile" ]]; then
-        source $HOME/.bash_profile
+    if [[ -f "$HOME/.bashrc" ]]; then
+        source $HOME/.bashrc
     fi
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.

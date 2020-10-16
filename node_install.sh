@@ -38,7 +38,7 @@ function main () {
     progress installAvalanche "Installing Avalanche, it may take some time"
 
     echo 'Creating Avalanche service...'
-    avalancheService ${output_file} 2>&1
+    avalancheService >> ${output_file} 2>&1
     echo 'Creating Avalanche auto-update service...'
     monitorService >> ${output_file} 2>&1
     
@@ -49,7 +49,7 @@ function main () {
     fi
 
     echo 'Launching Avalanche node...'
-    launchAvalanche ${output_file} 2>&1
+    launchAvalanche >> ${output_file} 2>&1
 
     {
     if [[ "${NODE_STATUS}" == "running" ]]; then
