@@ -31,8 +31,8 @@ function main () {
     logTimestamp "${output_file}"
 
     progress installDependencies "Installing dependencies"
-    progress goInstall "Installing Go"
-    source $HOME/.bashrc
+    goInstall #"Installing Go"
+
     progress installAvalanche "Installing Avalanche, it may take some time"
 
     echo 'Creating Avalanche service...'
