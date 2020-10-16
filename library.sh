@@ -278,7 +278,7 @@ function goInstall () {
   #go env -w GOPATH=$HOME/go
   #echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
   #echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
-  #echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bashrc
+  #echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:" >> $HOME/.bashrc
   #source $HOME/.bashrc
   #export GOPATH=$HOME/go
 }
@@ -450,7 +450,7 @@ function progress() {
     #if [[ -f "$HOME/.bashrc" ]]; then
     #    source $HOME/.bashrc >> ${output_file} 2>&1 &
     #fi
-    source $HOME.bashrc ${command} >> ${output_file} 2>&1 & # execute command in the background.
+    source $HOME/.bashrc ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
         {
