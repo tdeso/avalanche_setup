@@ -19,7 +19,7 @@ function node_version () {
 }
 
 function monitorStatus () {
-  systemctl -a list-units | grep -F 'autoupdate' | awk 'NR ==1 {print $4}' | tr -d \"
+  systemctl -a list-units | grep -F 'avalanche.update' | awk 'NR ==1 {print $4}' | tr -d \"
 }
 
 function updateAvalanche() {
@@ -29,9 +29,8 @@ function updateAvalanche() {
   ./scripts/build.sh
   sudo systemctl start avalanche 
   if [[ "${MONITOR_STATUS}" == "running" ]]; then    
-  sudo systemctl restart autoupdate    
+  sudo systemctl restart avalanche/update    
   fi
-  NODE_STATUS=$(eval node_status)
   while [[ -z $NODE_VERSION2 ]]; do
       sleep 0.2
       NODE_VERSION2=$(eval node_version)
@@ -55,7 +54,7 @@ function main () {
     echo '           \/           \/          \/     \/     \/     \/     \/  '
 
     progress updateAvalanche "Updating Avalanche"
-
+    NODE_STATUS=$(eval node_status)
     if [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
         updateSuccesstext
     elif [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" == "${NODE_VERSION2}" ]]; then
