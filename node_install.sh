@@ -60,7 +60,7 @@ function main () {
         fi
         monitortext
         nodeIDtext
-    elif [[ "${NODE_STATUS}" == "exited" ]]; then
+    elif [[ "${NODE_STATUS}" == "exited" || "failed" ]]; then
         launchedFailedtext
         monitortext
     fi
