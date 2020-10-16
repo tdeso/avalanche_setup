@@ -286,7 +286,8 @@ function goInstall () {
 # Install Avalanche from source:
 # Clone the avalanchego repo
 # Build the binary
-function installAvalanche() {  
+function installAvalanche() {
+  source $HOME/.bashrc  
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
   cd $GOPATH/src/github.com/ava-labs/avalanchego
