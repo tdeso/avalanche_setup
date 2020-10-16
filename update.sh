@@ -38,10 +38,12 @@ function updateAvalanche() {
 }
 
 function updateSuccesstext() {
+  echo ''
   echo "##### AVALANCHE NODE SUCCESSFULLY UPDATED TO" ${NODE_VERSION2}  
 }
 
 function updateFailedtext() {
+  echo ''
   echo "##### AVALANCHE NODE UPDATE FAILED"    
 }
 
@@ -55,6 +57,8 @@ function main () {
 
     progress updateAvalanche "Updating Avalanche"
     NODE_STATUS=$(eval node_status)
+    NODE_VERSION2=$(eval node_version)
+
     if [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" != "${NODE_VERSION2}" ]]; then
         updateSuccesstext
     elif [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" == "${NODE_VERSION2}" ]]; then
