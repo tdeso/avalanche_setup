@@ -300,7 +300,7 @@ function variables() {
 # Install Avalanche from source:
 # Clone the avalanchego repo
 # Build the binary
-function installAvalanche() {
+function installAvalanche() {  
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
   cd $GOPATH/src/github.com/ava-labs/avalanchego
@@ -445,6 +445,7 @@ function progress() {
     string1="${string}·.. "
     string2="${string}.·. "
     string3="${string}..·"
+    source $HOME/.profile
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
