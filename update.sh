@@ -74,8 +74,8 @@ function main () {
 
 current_dir=$(getCurrentDir)
 includeDependencies
-output_file="${HOME}/"$(date +%FT%T)".log"
+output_file="${HOME}/"update_$(date +%FT%T)".log"
 NODE_VERSION1=$(eval node_version)
 MONITOR_STATUS=$(eval monitorStatus)
 logTimestamp "${output_file}"
-main 2>> ${output_file}
+main
