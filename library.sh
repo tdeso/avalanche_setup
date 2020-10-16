@@ -276,10 +276,10 @@ function goInstall () {
   source $HOME/.profile
   go version
   go env -w GOPATH=$HOME/go
-  echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
-  echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
-  echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bashrc
-  source $HOME/.bashrc
+  echo "export GOROOT=/usr/local/go" >> $HOME/.bash_profile
+  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
+  echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bash_profile
+  source $HOME/.bash_profile
   export GOPATH=$HOME/go
 }
 
