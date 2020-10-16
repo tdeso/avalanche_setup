@@ -102,7 +102,7 @@ function setupTimezone() {
 function promptForPassword() {
    PASSWORDS_MATCH=0
    while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
-       read -s -rp "Enter new UNIX password with at least one uppercase char and one number:" password
+       read -s -rp "Enter new UNIX password:" password
        printf "\n"
        read -s -rp "Retype new UNIX password:" password_confirmation
        printf "\n"
