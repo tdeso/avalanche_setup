@@ -278,7 +278,10 @@ function goInstall () {
   echo "export PATH=$PATH:/usr/local/go/bin;" >> $HOME/.bashrc
   echo "export GOPATH=$HOME/go;" >> $HOME/.bashrc
   echo "export PATH=$PATH:$GOPATH/bin;" >> $HOME/.bashrc
-  source $HOME/.profile
+  source $HOME/.bashrc
+  export PATH=$PATH:/usr/local/go/bin
+  export GOPATH=$HOME/go
+  export PATH=$PATH:$GOPATH/bin
   go version
   go env -w GOPATH=$HOME/go
 }
