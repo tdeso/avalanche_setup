@@ -11,7 +11,7 @@ function getCurrentDir() {
 
 function includeDependencies() {
     source "${current_dir}/library.sh"
-    source "${HOME}/.bashrc"
+    source "${HOME}/.bash_profile"
 }
 
 function node_version () {
@@ -61,7 +61,7 @@ function main () {
         updateSuccesstext
     elif [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" == "${NODE_VERSION2}" ]]; then
         updateFailedtext
-    elif [[ "${NODE_STATUS}" == "exited" ]] || [[ "${NODE_STATUS}" == "failed "]]; then
+    elif [[ "${NODE_STATUS}" == "exited" ]] || [[ "${NODE_STATUS}" == "failed" ]]; then
         launchedFailedtext
     fi
     monitortext
