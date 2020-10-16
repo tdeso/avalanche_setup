@@ -273,11 +273,11 @@ function goInstall () {
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
   echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
+  echo "export GOPATH=$HOME/go" >> $HOME/.profile
+  echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.profile
   source $HOME/.profile
   go version
   go env -w GOPATH=$HOME/go
-  echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
-  echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
   export GOPATH=$HOME/go
   echo "export bold=\$(tput bold)" >> $HOME/.bashrc
