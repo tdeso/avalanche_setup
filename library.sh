@@ -273,16 +273,23 @@ function goInstall () {
   wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
   echo "export PATH=/usr/local/go/bin:$PATH" >> $HOME/.profile
-  echo "export GOPATH=$HOME/go" >> $HOME/.profile
-  echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.profile
   source $HOME/.profile
   go version
   go env -w GOPATH=$HOME/go
+  echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
+  echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
+  echo "export PATH=$PATH:$GOPATH/bin:$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
   export GOPATH=$HOME/go
+}
+
+# Set some variables for prettier output in terminal
+function textVariables() {
+  # Setting some variables before sourcing .bashrc
   echo "export bold=\$(tput bold)" >> $HOME/.bashrc
   echo "export underline=\$(tput smul)" >> $HOME/.bashrc
   echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
+  # end of variables
   source $HOME/.bashrc
 }
 
@@ -434,8 +441,10 @@ function progress() {
     string1="${string}·.. "
     string2="${string}.·. "
     string3="${string}..·"
-    source $HOME/.profile
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
+    if [[ -f "$HOME/.bashrc" ]]; then
+        source $HOME/.bash_profile
+    fi
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
@@ -450,7 +459,3 @@ function progress() {
     done
     echo "${string}..."
 }
-
-#    if [[ -f "$HOME/.bashrc" ]]; then
-#        source $HOME/.bashrc >> ${output_file} 2>&1 &
-#    fi
