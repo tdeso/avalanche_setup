@@ -58,7 +58,7 @@ function main () {
         updateSuccesstext
     elif [[ "${NODE_STATUS}" == "running" ]] && [[ "${NODE_VERSION1}" == "${NODE_VERSION2}" ]]; then
         updateFailedtext
-    elif [[ "${NODE_STATUS}" == "exited" || "failed "]]; then
+    elif [[ "${NODE_STATUS}" == "exited" ]] || [[ "${NODE_STATUS}" == "failed "]]; then
         launchedFailedtext
     fi
     monitortext
