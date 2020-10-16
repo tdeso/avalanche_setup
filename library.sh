@@ -276,6 +276,9 @@ function goInstall () {
   #echo "export GOPATH=$HOME/go" >> $HOME/.profile
   #echo "export PATH=$PATH:\$GOPATH/bin:" >> $HOME/.bashrc  
   #source $HOME/.profile
+}
+
+function variables() {
   echo "export bold=\$(tput bold)" >> $HOME/.bashrc
   echo "export underline=\$(tput smul)" >> $HOME/.bashrc
   echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
