@@ -33,7 +33,7 @@ function main () {
     progress installDependencies "Installing dependencies"
     progress goInstall "Installing Go"
 
-    textVariables
+    #textVariables
     
     progress installAvalanche "Installing Avalanche, it may take some time"
 
