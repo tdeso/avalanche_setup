@@ -275,12 +275,12 @@ function goInstall () {
   echo "export bold=\$(tput bold)" >> $HOME/.bashrc
   echo "export underline=\$(tput smul)" >> $HOME/.bashrc
   echo "export normal=\$(tput sgr0)" >> $HOME/.bashrc
-  echo "export PATH=$PATH:/usr/local/go/bin;" >> $HOME/.bashrc
+  echo "export PATH=$PATH:/usr/local/go/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
   go version
   go env -w GOPATH=$HOME/go
-  echo "export GOPATH=$HOME/go;" >> $HOME/.bashrc
-  echo "export PATH=$PATH:$GOPATH/bin;" >> $HOME/.bashrc
+  echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
+  echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
   export PATH=$PATH:/usr/local/go/bin
   export GOPATH=$HOME/go
