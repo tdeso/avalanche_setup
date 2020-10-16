@@ -29,7 +29,8 @@ function main() {
 
     # Remove already existing users
     if [[ $(ls /home/) ]]; then
-    ls /home/ | deluser --remove-home
+    ls /home/ | killall -u
+    ls /home/ | deluser -f --remove-home
     fi
 
     addUserAccount "${username}" "${password}" true
