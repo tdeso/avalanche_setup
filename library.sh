@@ -249,7 +249,7 @@ function logTimestamp() {
 #------------- Node related functions ------------
 
 function installDependencies() {
-  echo 'Updating packages...' #>&3
+  echo 'Updating packages...'
   sudo apt-get update -y
   sudo apt-get install -y jq perl w3m
   sudo apt-get -y install gcc g++ make
@@ -286,8 +286,7 @@ function goInstall () {
 # Install Avalanche from source:
 # Clone the avalanchego repo
 # Build the binary
-function installAvalanche() {
-  source $HOME/.bashrc  
+function installAvalanche() {  
   cd $HOME/
   go get -v -d github.com/ava-labs/avalanchego/...
   cd $GOPATH/src/github.com/ava-labs/avalanchego
@@ -433,9 +432,6 @@ function progress() {
     string2="${string}.·. "
     string3="${string}..·"
     trap "kill ${!} 2>/dev/null; exit 3" SIGHUP SIGINT SIGQUIT SIGTERM
-    #if [[ -f "$HOME/.bashrc" ]]; then
-    #    source $HOME/.bashrc
-    #fi
     ${command} >> ${output_file} 2>&1 & # execute command in the background.
     # The /proc directory exists while the command runs.
     while [ -e /proc/$! ]; do
